@@ -100,7 +100,7 @@ const onSubmit = handleSubmit((values) => {
                     Login with Google
                 </Button>
 
-                <FieldDescription class="px-6 text-center mt-4">
+                <div class="px-6 text-center mt-4">
                     Don't have an account?
                     <NuxtLink
                         to="/signup"
@@ -108,7 +108,7 @@ const onSubmit = handleSubmit((values) => {
                     >
                         Sign up
                     </NuxtLink>
-                </FieldDescription>
+                </div>
             </Field>
         </FieldGroup>
     </form>

@@ -2,9 +2,22 @@
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
-    modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', 'nuxt-lucide-icons'],
+    modules: [
+        '@nuxtjs/tailwindcss',
+        'shadcn-nuxt',
+        'nuxt-lucide-icons',
+        '@nuxt/image',
+    ],
+    plugins: ['~/plugins/vue-query.ts'],
     lucide: {
         namePrefix: 'Icon',
+    },
+
+    runtimeConfig: {
+        public: {
+            appBaseUrl: process.env.APP_BASE_URL || '',
+            apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/api',
+        },
     },
     shadcn: {
         /**

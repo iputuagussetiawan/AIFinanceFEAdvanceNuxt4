@@ -2,34 +2,46 @@
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import {
-    Field,
-    FieldDescription,
-    FieldGroup,
-    FieldSeparator,
-} from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+// Import the Form components required for the template
+import {
+    FormField,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormMessage,
+} from '@/components/ui/form';
+import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
-import GoogleIcon from '../shared/icons/GoogleIcon.vue';
+import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
+
+import { useMutation } from '@tanstack/vue-query';
+import { authService } from '~/modules/auth/auth.service';
+import {
+    RegisterSchema,
+    type RegisterInput,
+} from '~/modules/auth/auth.validation';
+
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
 
-const formSchema = toTypedSchema(
-    z.object({
-        fullName: z.string().min(2, 'Name is too short').max(50),
-        email: z.string().email('Invalid email address'),
-    })
-);
-
-const form = useForm({
-    validationSchema: formSchema,
+// 1. Setup Form
+const { handleSubmit, resetForm } = useForm<RegisterInput>({
+    validationSchema: RegisterSchema,
 });
 
-const onSubmit = form.handleSubmit((values) => {
-    console.log('🌱 Form submitted!', values);
+// 2. Setup Mutation
+const { mutate, isPending, error } = useMutation({
+    mutationFn: (newUser: RegisterInput) => authService.register(newUser),
+    onSuccess: () => {
+        resetForm();
+        navigateTo('/signin');
+    },
+});
+
+const onSubmit = handleSubmit((values: RegisterInput) => {
+    mutate(values);
 });
 </script>
 
@@ -42,7 +54,8 @@ const onSubmit = form.handleSubmit((values) => {
                     Fill in the form below to create your account
                 </p>
             </div>
-            <FormField v-slot="{ componentField }" name="fullName">
+
+            <FormField v-slot="{ componentField }" name="name">
                 <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
@@ -50,6 +63,7 @@ const onSubmit = form.handleSubmit((values) => {
                             type="text"
                             placeholder="Full Name"
                             v-bind="componentField"
+                            :disabled="isPending"
                         />
                     </FormControl>
                     <FormMessage />
@@ -62,23 +76,62 @@ const onSubmit = form.handleSubmit((values) => {
                     <FormControl>
                         <Input
                             type="email"
-                            placeholder="Email"
+                            placeholder="m@example.com"
                             v-bind="componentField"
+                            :disabled="isPending"
                         />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
             </FormField>
+
+            <FormField v-slot="{ componentField }" name="password">
+                <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                        <Input
+                            type="password"
+                            v-bind="componentField"
+                            :disabled="isPending"
+                        />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+            </FormField>
+
             <Field>
-                <Button type="submit"> Create Account </Button>
+                <Button type="submit" class="w-full" :disabled="isPending">
+                    <template v-if="isPending">Creating account...</template>
+                    <template v-else>Create Account</template>
+                </Button>
             </Field>
+
             <FieldSeparator>Or continue with</FieldSeparator>
+
             <Field>
-                <Button variant="outline" type="button">
-                    <GoogleIcon class="size-4" />
+                <Button
+                    variant="outline"
+                    type="button"
+                    class="w-full"
+                    :disabled="isPending"
+                >
+                    <GoogleIcon class="mr-2 size-4" />
                     Sign up with Google
                 </Button>
-                <FieldDescription class="px-6 text-center">
+
+                <p
+                    v-if="error"
+                    class="text-destructive text-xs text-center mt-2"
+                >
+                    {{
+                        (error as any).data?.message ||
+                        'An error occurred during registration'
+                    }}
+                </p>
+
+                <div
+                    class="px-6 text-center text-sm text-muted-foreground mt-4"
+                >
                     Already have an account?
                     <NuxtLink
                         to="/signin"
@@ -86,7 +139,7 @@ const onSubmit = form.handleSubmit((values) => {
                     >
                         Sign in
                     </NuxtLink>
-                </FieldDescription>
+                </div>
             </Field>
         </FieldGroup>
     </form>
