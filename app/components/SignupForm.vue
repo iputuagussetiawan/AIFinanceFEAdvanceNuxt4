@@ -6,19 +6,34 @@ import {
     Field,
     FieldDescription,
     FieldGroup,
-    FieldLabel,
     FieldSeparator,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { LucideRocket } from 'lucide-vue-next';
-
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/zod';
+import * as z from 'zod';
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
+
+const formSchema = toTypedSchema(
+    z.object({
+        fullName: z.string().min(2, 'Name is too short').max(50),
+        email: z.string().email('Invalid email address'),
+    })
+);
+
+const form = useForm({
+    validationSchema: formSchema,
+});
+
+const onSubmit = form.handleSubmit((values) => {
+    console.log('🌱 Form submitted!', values);
+});
 </script>
 
 <template>
-    <form :class="cn('flex flex-col gap-6', props.class)">
+    <form :class="cn('flex flex-col gap-6', props.class)" @submit="onSubmit">
         <FieldGroup>
             <div class="flex flex-col items-center gap-1 text-center">
                 <h1 class="text-2xl font-bold">Create your account</h1>
@@ -26,23 +41,33 @@ const props = defineProps<{
                     Fill in the form below to create your account
                 </p>
             </div>
-            <Field>
-                <FieldLabel for="name"> Full Name </FieldLabel>
-                <Input id="name" type="text" placeholder="John Doe" required />
-            </Field>
-            <Field>
-                <FieldLabel for="email"> Email </FieldLabel>
-                <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                />
-                <FieldDescription>
-                    We'll use this to contact you. We will not share your email
-                    with anyone else.
-                </FieldDescription>
-            </Field>
+            <FormField v-slot="{ componentField }" name="fullName">
+                <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                        <Input
+                            type="text"
+                            placeholder="Full Name"
+                            v-bind="componentField"
+                        />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+            </FormField>
+
+            <FormField v-slot="{ componentField }" name="email">
+                <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                        <Input
+                            type="email"
+                            placeholder="Email"
+                            v-bind="componentField"
+                        />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
+            </FormField>
             <Field>
                 <Button type="submit"> Create Account </Button>
             </Field>

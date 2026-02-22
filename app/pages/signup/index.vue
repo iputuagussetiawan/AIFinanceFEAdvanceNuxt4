@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { GalleryVerticalEnd } from 'lucide-vue-next';
+import {
+    ChartLineIcon,
+    GalleryVerticalEnd,
+    type ChartLine,
+} from 'lucide-vue-next';
 
 import SignupForm from '@/components/SignupForm.vue';
 </script>
@@ -12,9 +16,9 @@ import SignupForm from '@/components/SignupForm.vue';
                     <div
                         class="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md"
                     >
-                        <GalleryVerticalEnd class="size-4" />
+                        <ChartLineIcon class="size-4" />
                     </div>
-                    Acme Inc.
+                    AI Finance Assistant
                 </a>
             </div>
             <div class="flex flex-1 items-center justify-center">
@@ -24,11 +28,11 @@ import SignupForm from '@/components/SignupForm.vue';
             </div>
         </div>
         <div class="bg-muted relative hidden lg:block">
-            <!-- <img
-        src="/placeholder.svg"
-        alt="Image"
-        class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-      > -->
+            <img
+                src="/images/page/signup/sign-up.jpg"
+                alt="Image"
+                class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            />
         </div>
     </div>
 </template>
