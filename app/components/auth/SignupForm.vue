@@ -321,7 +321,13 @@ const onSubmit = form.handleSubmit((values) => {
                     Sign up with Google
                 </Button>
                 <FieldDescription class="px-6 text-center">
-                    Already have an account? <a href="#">Sign in</a>
+                    Already have an account?
+                    <NuxtLink
+                        to="/signin"
+                        class="underline underline-offset-4 hover:text-primary transition-colors"
+                    >
+                        Sign in
+                    </NuxtLink>
                 </FieldDescription>
             </Field>
         </FieldGroup>
