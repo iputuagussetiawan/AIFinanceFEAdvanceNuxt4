@@ -1,0 +1,5 @@
+echo "🔍 Running TypeScript Type-Check..."
+pnpm run type-check
+
+echo "💅 Running Lint and Format..."
+pnpm exec lint-staged
