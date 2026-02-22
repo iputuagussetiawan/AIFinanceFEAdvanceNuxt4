@@ -1,9 +1,9 @@
-<script setup lang="ts">
-import Button from './components/ui/button/Button.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <div>
-        <Button>Click me</Button>
+        <NuxtLayout>
+            <NuxtPage />
+        </NuxtLayout>
     </div>
 </template>
