@@ -1,11 +1,11 @@
 {
     // https://nuxt.com/docs/guide/concepts/typescript
     "files": [],
-    "compilerOptions": {
-        "moduleResolution": "bundler", // or "node"
-        "allowJs": true,
-        "types": ["@vueuse/core"]
-    },
+    // "compilerOptions": {
+    //     "moduleResolution": "bundler", // or "node"
+    //     "allowJs": true,
+    //     "types": ["@vueuse/core"]
+    // },
     "references": [
         {
             "path": "./.nuxt/tsconfig.app.json"
