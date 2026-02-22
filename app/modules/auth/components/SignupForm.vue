@@ -11,8 +11,9 @@ import {
     RegisterSchema,
     type RegisterInput,
 } from '~/modules/auth/auth.validation';
-import UiInput from '../shared/UiInput.vue';
+
 import { Loader2 } from 'lucide-vue-next';
+import UiInput from '~/components/shared/UiInput.vue';
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];

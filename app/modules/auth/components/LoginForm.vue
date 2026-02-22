@@ -2,19 +2,14 @@
 import { type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import {
-    Field,
-    FieldGroup,
-    FieldLabel,
-    FieldSeparator,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
 // Validation Imports
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import * as z from 'zod';
-import GoogleIcon from '../shared/icons/GoogleIcon.vue';
+import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];
