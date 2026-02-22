@@ -2,25 +2,17 @@
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-// Import the Form components required for the template
-import {
-    FormField,
-    FormItem,
-    FormLabel,
-    FormControl,
-    FormMessage,
-} from '@/components/ui/form';
 import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { useForm } from 'vee-validate';
 import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
-
 import { useMutation } from '@tanstack/vue-query';
 import { authService } from '~/modules/auth/auth.service';
 import {
     RegisterSchema,
     type RegisterInput,
 } from '~/modules/auth/auth.validation';
+import UiInput from '../shared/UiInput.vue';
+import { Loader2 } from 'lucide-vue-next';
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];
@@ -54,60 +46,38 @@ const onSubmit = handleSubmit((values: RegisterInput) => {
                     Fill in the form below to create your account
                 </p>
             </div>
-
-            <FormField v-slot="{ componentField }" name="name">
-                <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                        <Input
-                            type="text"
-                            placeholder="Full Name"
-                            v-bind="componentField"
-                            :disabled="isPending"
-                        />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            </FormField>
-
-            <FormField v-slot="{ componentField }" name="email">
-                <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                        <Input
-                            type="email"
-                            placeholder="m@example.com"
-                            v-bind="componentField"
-                            :disabled="isPending"
-                        />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            </FormField>
-
-            <FormField v-slot="{ componentField }" name="password">
-                <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                        <Input
-                            type="password"
-                            v-bind="componentField"
-                            :disabled="isPending"
-                        />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            </FormField>
-
+            <UiInput
+                name="name"
+                label="Full Name"
+                placeholder="Enter your name"
+                :disabled="isPending"
+            />
+            <UiInput
+                name="email"
+                label="Email"
+                placeholder="Enter your email"
+                :disabled="isPending"
+            />
+            <UiInput
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="Enter your password"
+                :disabled="isPending"
+            />
             <Field>
                 <Button type="submit" class="w-full" :disabled="isPending">
-                    <template v-if="isPending">Creating account...</template>
+                    <template v-if="isPending"
+                        ><Loader2
+                            v-if="isPending"
+                            class="size-4 animate-spin"
+                        />
+                        Create Account...</template
+                    >
                     <template v-else>Create Account</template>
                 </Button>
             </Field>
-
             <FieldSeparator>Or continue with</FieldSeparator>
-
             <Field>
                 <Button
                     variant="outline"
@@ -115,7 +85,7 @@ const onSubmit = handleSubmit((values: RegisterInput) => {
                     class="w-full"
                     :disabled="isPending"
                 >
-                    <GoogleIcon class="mr-2 size-4" />
+                    <GoogleIcon class="size-4" />
                     Sign up with Google
                 </Button>
 

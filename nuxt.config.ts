@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: true },
+    build: {
+        // This tells Nuxt to handle the "exports" logic for these specific packages
+        transpile: ['@tanstack/vue-query', 'ufo', 'vee-validate'],
+    },
     modules: [
         '@nuxtjs/tailwindcss',
         'shadcn-nuxt',
