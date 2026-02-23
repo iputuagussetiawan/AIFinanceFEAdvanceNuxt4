@@ -3,41 +3,42 @@ import { type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-
-// Validation Imports
 import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
 import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
+import UiInput from '~/components/shared/UiInput.vue';
+import { LoginSchema, type LoginInput } from '../auth.validation';
+import { useMutation } from '@tanstack/vue-query';
+import { authService } from '../auth.service';
+import { Loader2 } from 'lucide-vue-next';
+const { user } = useAuth();
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
 
-// 1. Define Zod Schema
-const formSchema = toTypedSchema(
-    z.object({
-        email: z
-            .string()
-            .min(1, 'Email is required')
-            .email('Please enter a valid email'),
-        password: z.string().min(6, 'Password must be at least 6 characters'),
-    })
-);
-
 // 2. Initialize Form
-const { handleSubmit, errors, defineField } = useForm({
-    validationSchema: formSchema,
+const { handleSubmit } = useForm<LoginInput>({
+    validationSchema: LoginSchema,
 });
 
-const [email, emailProps] = defineField('email');
-const [password, passwordProps] = defineField('password');
+const { mutate, isPending, error } = useMutation({
+    mutationFn: (credentials: LoginInput) => authService.login(credentials),
+    onSuccess: async (data) => {
+        console.log('Login successful', data);
+
+        const token = useCookie('accessToken');
+        token.value = data.access_token;
+
+        user.value = data.user;
+
+        await navigateTo('/dashboard');
+    },
+});
 
 // 3. Handle Submit
-const onSubmit = handleSubmit((values) => {
+const onSubmit = handleSubmit((values: LoginInput) => {
     console.log('Form Submitted:', values);
-    // Add your login logic here
+    mutate(values);
 });
 </script>
 
@@ -51,40 +52,38 @@ const onSubmit = handleSubmit((values) => {
                 </p>
             </div>
 
-            <FormField v-slot="{ componentField }" name="email">
-                <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                        <Input
-                            type="email"
-                            placeholder="m@example.com"
-                            v-bind="componentField"
-                        />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            </FormField>
+            <UiInput
+                name="email"
+                label="Email"
+                placeholder="Enter your email"
+                :disabled="isPending"
+            />
 
-            <FormField v-slot="{ componentField }" name="password">
-                <FormItem>
-                    <div class="flex items-center">
-                        <FormLabel>Password</FormLabel>
-                        <NuxtLink
-                            to="/forgot-password"
-                            class="ml-auto text-sm underline underline-offset-4 hover:text-primary transition-colors"
-                        >
-                            Forgot your password?
-                        </NuxtLink>
-                    </div>
-                    <FormControl>
-                        <Input type="password" v-bind="componentField" />
-                    </FormControl>
-                    <FormMessage />
-                </FormItem>
-            </FormField>
+            <UiInput
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="Enter your password"
+                :disabled="isPending"
+            />
+
+            <p
+                v-if="error"
+                class="text-destructive text-sm text-center font-medium"
+            >
+                {{
+                    (error as any).data?.message || 'Invalid email or password'
+                }}
+            </p>
 
             <Field>
-                <Button type="submit" class="w-full"> Login </Button>
+                <Button type="submit" class="w-full" :disabled="isPending">
+                    <template v-if="isPending">
+                        <Loader2 v-if="isPending" class="size-4 animate-spin" />
+                        Logging in...
+                    </template>
+                    <template v-else>Login</template>
+                </Button>
             </Field>
 
             <FieldSeparator>Or continue with</FieldSeparator>
