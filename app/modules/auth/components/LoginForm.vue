@@ -23,21 +23,42 @@ const { handleSubmit } = useForm<LoginInput>({
 
 const { mutate, isPending, error } = useMutation({
     mutationFn: (credentials: LoginInput) => authService.login(credentials),
-    onSuccess: async (data) => {
-        console.log('Login successful', data);
 
+    onSuccess: async (data) => {
+        console.log('Login successful');
+
+        // 1. Set the cookie
         const token = useCookie('accessToken');
         token.value = data.access_token;
 
+        // 2. Update global user state
         user.value = data.user;
 
+        // 3. Redirect to dashboard
         await navigateTo('/dashboard');
+    },
+
+    onError: (err: any) => {
+        /**
+         * Handle different types of errors:
+         * 1. Validation errors (400/422)
+         * 2. Unauthorized (401)
+         * 3. Server errors (500)
+         */
+        console.error('Login failed:', err.response?._data || err.message);
+
+        // Ensure state is clean on failure
+        user.value = null;
+        const token = useCookie('accessToken');
+        token.value = null;
+
+        // Optional: Trigger a toast notification here
+        // toast.error(err.response?._data?.message || 'Login failed. Please try again.');
     },
 });
 
 // 3. Handle Submit
 const onSubmit = handleSubmit((values: LoginInput) => {
-    console.log('Form Submitted:', values);
     mutate(values);
 });
 </script>
