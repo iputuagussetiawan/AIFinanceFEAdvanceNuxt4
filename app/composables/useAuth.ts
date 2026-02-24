@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/vue-query';
+import { authService } from '~/modules/auth/auth.service';
 import { userService } from '~/modules/user/user.service';
 
 export const useAuth = () => {
@@ -36,14 +37,29 @@ export const useAuth = () => {
      */
     const isLoggedIn = computed(() => !!user.value);
 
+    const logout = async () => {
+        try {
+            // Memanggil fungsi yang sudah kita pindahkan ke service
+            await authService.logout();
+        } catch (error) {
+            // Kita log error-nya saja, tapi tetap lanjut ke proses cleanup
+            console.error('Logout error from server:', error);
+        } finally {
+            // Selalu bersihkan state di frontend
+            user.value = null;
+            token.value = null;
+
+            // Redirect ke halaman login
+            await navigateTo('/signin');
+        }
+    };
+
     // 5. Ensure everything is returned here
     return {
         user,
         isLoggedIn, // <--- Make sure this is here!
         isLoading,
         fetchUser: refetch,
-        logout: async () => {
-            // ... your logout logic
-        },
+        logout,
     };
 };
