@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { user, logout } = useAuth();
 import {
     BadgeCheck,
     Bell,
@@ -25,13 +26,13 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 
-const props = defineProps<{
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}>();
+// const props = defineProps<{
+//     user: {
+//         name: string;
+//         email: string;
+//         avatar: string;
+//     };
+// }>();
 
 const { isMobile } = useSidebar();
 </script>
@@ -46,7 +47,10 @@ const { isMobile } = useSidebar();
                         class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                     >
                         <Avatar class="h-8 w-8 rounded-lg">
-                            <AvatarImage :src="user.avatar" :alt="user.name" />
+                            <AvatarImage
+                                :src="user?.user.profilePicture"
+                                :alt="user?.user.name"
+                            />
                             <AvatarFallback class="rounded-lg">
                                 CN
                             </AvatarFallback>
@@ -55,10 +59,10 @@ const { isMobile } = useSidebar();
                             class="grid flex-1 text-left text-sm leading-tight"
                         >
                             <span class="truncate font-medium">{{
-                                user.name
+                                user?.user.name
                             }}</span>
                             <span class="truncate text-xs">{{
-                                user.email
+                                user?.user.email
                             }}</span>
                         </div>
                         <ChevronsUpDown class="ml-auto size-4" />
@@ -76,8 +80,8 @@ const { isMobile } = useSidebar();
                         >
                             <Avatar class="h-8 w-8 rounded-lg">
                                 <AvatarImage
-                                    :src="user.avatar"
-                                    :alt="user.name"
+                                    :src="user?.user.profilePicture"
+                                    :alt="user?.user.name"
                                 />
                                 <AvatarFallback class="rounded-lg">
                                     CN
@@ -87,10 +91,10 @@ const { isMobile } = useSidebar();
                                 class="grid flex-1 text-left text-sm leading-tight"
                             >
                                 <span class="truncate font-semibold">{{
-                                    user.name
+                                    user?.user.name
                                 }}</span>
                                 <span class="truncate text-xs">{{
-                                    user.email
+                                    user?.user.email
                                 }}</span>
                             </div>
                         </div>
@@ -118,9 +122,9 @@ const { isMobile } = useSidebar();
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem @click="logout">
                         <LogOut />
-                        Log out
+                        Log out 2
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

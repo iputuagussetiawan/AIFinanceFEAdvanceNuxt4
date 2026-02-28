@@ -1,34 +1,53 @@
 import { authService } from '~/modules/auth/auth.service';
 import { userService } from '~/modules/user/user.service';
 
+export interface IUser {
+    _id: string;
+    name: string;
+    email: string;
+    profilePicture: string | null;
+    isEmailVerified: boolean;
+    isActive: boolean;
+    lastLogin: string | null; // null if the user hasn't logged in since tracking started
+    createdAt: string; // ISO Date string
+    updatedAt: string; // ISO Date string
+    __v: number;
+}
+
+export interface IUserResponse {
+    message: string;
+    user: IUser;
+}
+
 export const useAuth = () => {
-    const user = useState<any | null>('user', () => null);
+    const user = useState<IUserResponse | null>('user', () => null);
     const token = useCookie('accessToken');
     const loading = ref(false);
 
     // 1. Initial Fetch
-    const { data, refresh, pending } = useAsyncData(
+    const { data, pending } = useAsyncData(
         'authUser',
         async () => {
-            // Check if token exists inside the fetcher to prevent unnecessary calls
             if (!token.value) return null;
+            // Fetch the raw response from the service
             return await userService.getUser();
+            // Return ONLY the user part. This is what 'data' will hold.
         },
         {
             immediate: !!token.value,
-            // Remove watch: [token] here to prevent it from auto-firing
-            // when we clear the token during logout.
+            // We removed 'transform' here because we are already
+            // unwrapping 'res.user' in the async function above.
             server: true,
         }
     );
 
-    // 2. Manual Fetch
+    // 2. Manual Fetch (used for profile updates or re-auth)
     const fetchUser = async () => {
         if (!token.value) return;
         loading.value = true;
         try {
             const res = await userService.getUser();
-            user.value = res;
+            user.value = res.user;
         } catch (err) {
             user.value = null;
             token.value = null;
@@ -38,10 +57,11 @@ export const useAuth = () => {
     };
 
     // 3. Sync initial data
+    // We watch 'data' to ensure the global 'user' state stays updated.
+    // When logout happens, data becomes null, and user.value follows.
     watch(
         data,
         (newUser) => {
-            // Only update if newUser is actually an object, not null from a failed refresh
             if (newUser) user.value = newUser;
         },
         { immediate: true }
@@ -49,24 +69,20 @@ export const useAuth = () => {
 
     const isLoggedIn = computed(() => !!user.value);
 
-    // 4. Fixed Logout
+    // 4. Logout
     const logout = async () => {
         try {
-            // Stop further reactive triggers by clearing data cache first
+            // Clear Nuxt cache so a new login doesn't show old user data
             clearNuxtData('authUser');
-
-            // Call API
             await authService.logout();
         } catch (err) {
             console.error('Logout error:', err);
         } finally {
-            // 5. Order of operations matters:
-            // First, clear the state
+            // Clear local reactive states
             user.value = null;
             token.value = null;
 
-            // Use 'replace: true' to ensure the user can't click "Back"
-            // and trigger a re-auth attempt
+            // Redirect and clear history stack
             await navigateTo('/signin', { replace: true });
         }
     };

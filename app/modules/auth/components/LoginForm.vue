@@ -33,7 +33,11 @@ const { mutate, isPending, error } = useMutation({
         token.value = data.access_token;
 
         // 2. Update global user state
-        user.value = data.user;
+        const userLoginData = {
+            message: 'User fetch successfully',
+            user: data.user,
+        };
+        user.value = userLoginData;
         toast.success({
             title: 'Success!',
             message: 'Your action was completed successfully.',
