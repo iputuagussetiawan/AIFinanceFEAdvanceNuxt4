@@ -14,7 +14,7 @@ type InputType = 'text' | 'password' | 'email';
 // 2. Define interface for props
 interface Props {
     name: string;
-    label: string;
+    label?: string;
     placeholder?: string;
     type?: InputType;
     disabled?: boolean;

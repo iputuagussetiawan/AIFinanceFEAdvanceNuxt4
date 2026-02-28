@@ -11,6 +11,7 @@ export default defineNuxtConfig({
         'shadcn-nuxt',
         'nuxt-lucide-icons',
         '@nuxt/image',
+        'nuxt-toast',
     ],
     plugins: ['~/plugins/vue-query.ts'],
     lucide: {
