@@ -18,7 +18,7 @@ import SessionItem from './SessionItem.vue';
                 logged in. You can log out of each session.
             </p>
 
-            <Loader2 className="animate-spin" />
+            <!-- <Loader2 className="animate-spin" /> -->
 
             <div className="rounded-t-xl max-w-xl">
                 <div>

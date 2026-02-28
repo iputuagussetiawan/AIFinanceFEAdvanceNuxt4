@@ -58,68 +58,65 @@ const { user, logout } = useAuth();
                 </div>
             </header>
 
-            <ClientOnly>
-                <div class="flex flex-col min-h-screen">
-                    <header
-                        class="mx-auto w-full max-w-3xl px-6 py-10 md:max-w-5xl"
+            <div class="flex flex-col min-h-screen">
+                <header
+                    class="mx-auto w-full max-w-3xl px-6 py-10 md:max-w-5xl"
+                >
+                    <h1
+                        class="text-3xl tracking-tight text-foreground sm:text-4xl"
                     >
-                        <h1
-                            class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-                        >
-                            Setup security and sessions
-                        </h1>
-                        <p class="mt-2 text-sm text-muted-foreground">
-                            Welcome back,
-                            <span class="font-medium text-foreground"
-                                >I Putu</span
-                            >. Follow the steps to activate using Squeezy.
-                        </p>
-                    </header>
+                        Setup security and sessions
+                    </h1>
+                    <p class="mt-2 text-sm text-muted-foreground">
+                        Welcome back,
+                        <span class="font-medium text-foreground">I Putu</span>.
+                        Follow the steps to activate using Squeezy.
+                    </p>
+                </header>
 
-                    <main
-                        class="relative mx-auto w-full max-w-3xl px-6 md:max-w-5xl"
-                    >
-                        <div
-                            class="absolute left-6 top-0 bottom-0 w-px bg-linear-to-b from-primary/50 via-border to-transparent dark:from-primary/30"
-                        />
+                <main
+                    class="relative mx-auto w-full max-w-3xl px-6 md:max-w-5xl"
+                >
+                    <div
+                        class="absolute left-6 top-0 bottom-0 w-px bg-linear-to-b from-primary/50 via-border to-transparent dark:from-primary/30"
+                    />
 
-                        <div class="flex flex-col gap-12">
-                            <section class="relative pl-10 group">
+                    <div class="flex flex-col gap-12">
+                        <section class="relative pl-10 group">
+                            <div
+                                class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
+                            >
                                 <div
-                                    class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
-                                >
-                                    <div
-                                        class="h-2.5 w-2.5 rounded-full bg-primary"
-                                    />
-                                </div>
+                                    class="h-2.5 w-2.5 rounded-full bg-primary"
+                                />
+                            </div>
 
-                                <div class="space-y-4">
-                                    <h3 class="text-lg font-semibold">
-                                        Multi-Factor Authentication
-                                    </h3>
-                                </div>
-                            </section>
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">
+                                    Multi-Factor Authentication
+                                </h3>
+                            </div>
+                        </section>
 
-                            <section class="relative pl-10 group">
+                        <section class="relative pl-10 group">
+                            <div
+                                class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
+                            >
                                 <div
-                                    class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
-                                >
-                                    <div
-                                        class="h-2.5 w-2.5 rounded-full bg-primary"
-                                    />
-                                </div>
+                                    class="h-2.5 w-2.5 rounded-full bg-primary"
+                                />
+                            </div>
 
-                                <div class="space-y-4">
-                                    <h3 class="text-lg font-semibold">
-                                        Active Sessions
-                                    </h3>
-                                    <Sessions />
-                                </div>
-                            </section>
-                        </div>
-                    </main>
-                </div>
-            </ClientOnly>
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold">
+                                    Active Sessions
+                                </h3>
+                                <Sessions />
+                            </div>
+                        </section>
+                    </div>
+                </main>
+            </div>
         </SidebarInset>
     </SidebarProvider>
 </template>

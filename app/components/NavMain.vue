@@ -36,8 +36,8 @@ defineProps<{
         <SidebarGroupLabel>Platform</SidebarGroupLabel>
         <SidebarMenu>
             <Collapsible
-                v-for="item in items"
-                :key="item.title"
+                v-for="(item, index) in items"
+                :key="index"
                 as-child
                 :default-open="item.isActive"
                 class="group/collapsible"
