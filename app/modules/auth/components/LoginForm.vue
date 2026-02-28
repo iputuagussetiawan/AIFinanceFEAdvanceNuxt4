@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/vue-query';
 import { authService } from '../auth.service';
 import { Loader2 } from 'lucide-vue-next';
 const { user } = useAuth();
+const toast = useToast();
 
 const props = defineProps<{
     class?: HTMLAttributes['class'];
@@ -33,7 +34,10 @@ const { mutate, isPending, error } = useMutation({
 
         // 2. Update global user state
         user.value = data.user;
-
+        toast.success({
+            title: 'Success!',
+            message: 'Your action was completed successfully.',
+        });
         // 3. Redirect to dashboard
         await navigateTo('/dashboard');
     },
@@ -51,6 +55,10 @@ const { mutate, isPending, error } = useMutation({
         user.value = null;
         const token = useCookie('accessToken');
         token.value = null;
+        toast.error({
+            title: 'Error!',
+            message: 'Login failed. Please try again.',
+        });
 
         // Optional: Trigger a toast notification here
         // toast.error(err.response?._data?.message || 'Login failed. Please try again.');

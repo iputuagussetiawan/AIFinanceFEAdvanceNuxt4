@@ -37,6 +37,9 @@ importers:
             nuxt-lucide-icons:
                 specifier: 2.0.0
                 version: 2.0.0(magicast@0.5.2)(vue@3.5.28(typescript@5.9.3))
+            nuxt-toast:
+                specifier: 1.4.0
+                version: 1.4.0(izitoast@1.4.0)(magicast@0.5.2)
             reka-ui:
                 specifier: ^2.8.2
                 version: 2.8.2(vue@3.5.28(typescript@5.9.3))
@@ -58,6 +61,9 @@ importers:
             vue-router:
                 specifier: ^4.6.4
                 version: 4.6.4(vue@3.5.28(typescript@5.9.3))
+            vue-sonner:
+                specifier: ^2.0.9
+                version: 2.0.9(@nuxt/kit@4.3.1(magicast@0.5.2))(@nuxt/schema@4.3.1)(nuxt@4.3.1(@parcel/watcher@2.5.6)(@types/node@25.3.0)(@vue/compiler-sfc@3.5.28)(cac@6.7.14)(db0@0.3.4)(ioredis@5.9.3)(lightningcss@1.31.1)(magicast@0.5.2)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(yaml@2.8.2))
             zod:
                 specifier: 3.25.76
                 version: 3.25.76
@@ -672,6 +678,7 @@ packages:
             }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linux-arm@1.2.4':
         resolution:
@@ -680,6 +687,7 @@ packages:
             }
         cpu: [arm]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linux-ppc64@1.2.4':
         resolution:
@@ -688,6 +696,7 @@ packages:
             }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linux-riscv64@1.2.4':
         resolution:
@@ -696,6 +705,7 @@ packages:
             }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linux-s390x@1.2.4':
         resolution:
@@ -704,6 +714,7 @@ packages:
             }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linux-x64@1.2.4':
         resolution:
@@ -712,6 +723,7 @@ packages:
             }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-libvips-linuxmusl-arm64@1.2.4':
         resolution:
@@ -720,6 +732,7 @@ packages:
             }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@img/sharp-libvips-linuxmusl-x64@1.2.4':
         resolution:
@@ -728,6 +741,7 @@ packages:
             }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@img/sharp-linux-arm64@0.34.5':
         resolution:
@@ -737,6 +751,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linux-arm@0.34.5':
         resolution:
@@ -746,6 +761,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [arm]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linux-ppc64@0.34.5':
         resolution:
@@ -755,6 +771,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linux-riscv64@0.34.5':
         resolution:
@@ -764,6 +781,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linux-s390x@0.34.5':
         resolution:
@@ -773,6 +791,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linux-x64@0.34.5':
         resolution:
@@ -782,6 +801,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@img/sharp-linuxmusl-arm64@0.34.5':
         resolution:
@@ -791,6 +811,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@img/sharp-linuxmusl-x64@0.34.5':
         resolution:
@@ -800,6 +821,7 @@ packages:
         engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@img/sharp-wasm32@0.34.5':
         resolution:
@@ -1137,6 +1159,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-minify/binding-linux-arm64-musl@0.112.0':
         resolution:
@@ -1146,6 +1169,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-minify/binding-linux-ppc64-gnu@0.112.0':
         resolution:
@@ -1155,6 +1179,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-minify/binding-linux-riscv64-gnu@0.112.0':
         resolution:
@@ -1164,6 +1189,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-minify/binding-linux-riscv64-musl@0.112.0':
         resolution:
@@ -1173,6 +1199,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-minify/binding-linux-s390x-gnu@0.112.0':
         resolution:
@@ -1182,6 +1209,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-minify/binding-linux-x64-gnu@0.112.0':
         resolution:
@@ -1191,6 +1219,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-minify/binding-linux-x64-musl@0.112.0':
         resolution:
@@ -1200,6 +1229,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-minify/binding-openharmony-arm64@0.112.0':
         resolution:
@@ -1361,6 +1391,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-arm64-gnu@0.112.0':
         resolution:
@@ -1370,6 +1401,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-arm64-musl@0.102.0':
         resolution:
@@ -1379,6 +1411,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-parser/binding-linux-arm64-musl@0.112.0':
         resolution:
@@ -1388,6 +1421,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-parser/binding-linux-ppc64-gnu@0.112.0':
         resolution:
@@ -1397,6 +1431,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-riscv64-gnu@0.102.0':
         resolution:
@@ -1406,6 +1441,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-riscv64-gnu@0.112.0':
         resolution:
@@ -1415,6 +1451,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-riscv64-musl@0.112.0':
         resolution:
@@ -1424,6 +1461,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-parser/binding-linux-s390x-gnu@0.102.0':
         resolution:
@@ -1433,6 +1471,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-s390x-gnu@0.112.0':
         resolution:
@@ -1442,6 +1481,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-x64-gnu@0.102.0':
         resolution:
@@ -1451,6 +1491,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-x64-gnu@0.112.0':
         resolution:
@@ -1460,6 +1501,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-parser/binding-linux-x64-musl@0.102.0':
         resolution:
@@ -1469,6 +1511,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-parser/binding-linux-x64-musl@0.112.0':
         resolution:
@@ -1478,6 +1521,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-parser/binding-openharmony-arm64@0.102.0':
         resolution:
@@ -1641,6 +1685,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-transform/binding-linux-arm64-musl@0.112.0':
         resolution:
@@ -1650,6 +1695,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-transform/binding-linux-ppc64-gnu@0.112.0':
         resolution:
@@ -1659,6 +1705,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-transform/binding-linux-riscv64-gnu@0.112.0':
         resolution:
@@ -1668,6 +1715,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-transform/binding-linux-riscv64-musl@0.112.0':
         resolution:
@@ -1677,6 +1725,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [riscv64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-transform/binding-linux-s390x-gnu@0.112.0':
         resolution:
@@ -1686,6 +1735,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-transform/binding-linux-x64-gnu@0.112.0':
         resolution:
@@ -1695,6 +1745,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@oxc-transform/binding-linux-x64-musl@0.112.0':
         resolution:
@@ -1704,6 +1755,7 @@ packages:
         engines: { node: ^20.19.0 || >=22.12.0 }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@oxc-transform/binding-openharmony-arm64@0.112.0':
         resolution:
@@ -1793,6 +1845,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [arm]
         os: [linux]
+        libc: [glibc]
 
     '@parcel/watcher-linux-arm-musl@2.5.6':
         resolution:
@@ -1802,6 +1855,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [arm]
         os: [linux]
+        libc: [musl]
 
     '@parcel/watcher-linux-arm64-glibc@2.5.6':
         resolution:
@@ -1811,6 +1865,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@parcel/watcher-linux-arm64-musl@2.5.6':
         resolution:
@@ -1820,6 +1875,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@parcel/watcher-linux-x64-glibc@2.5.6':
         resolution:
@@ -1829,6 +1885,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@parcel/watcher-linux-x64-musl@2.5.6':
         resolution:
@@ -1838,6 +1895,7 @@ packages:
         engines: { node: '>= 10.0.0' }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@parcel/watcher-wasm@2.5.6':
         resolution:
@@ -2076,6 +2134,7 @@ packages:
             }
         cpu: [arm]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-arm-musleabihf@4.59.0':
         resolution:
@@ -2084,6 +2143,7 @@ packages:
             }
         cpu: [arm]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-linux-arm64-gnu@4.59.0':
         resolution:
@@ -2092,6 +2152,7 @@ packages:
             }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-arm64-musl@4.59.0':
         resolution:
@@ -2100,6 +2161,7 @@ packages:
             }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-linux-loong64-gnu@4.59.0':
         resolution:
@@ -2108,6 +2170,7 @@ packages:
             }
         cpu: [loong64]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-loong64-musl@4.59.0':
         resolution:
@@ -2116,6 +2179,7 @@ packages:
             }
         cpu: [loong64]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-linux-ppc64-gnu@4.59.0':
         resolution:
@@ -2124,6 +2188,7 @@ packages:
             }
         cpu: [ppc64]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-ppc64-musl@4.59.0':
         resolution:
@@ -2132,6 +2197,7 @@ packages:
             }
         cpu: [ppc64]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-linux-riscv64-gnu@4.59.0':
         resolution:
@@ -2140,6 +2206,7 @@ packages:
             }
         cpu: [riscv64]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-riscv64-musl@4.59.0':
         resolution:
@@ -2148,6 +2215,7 @@ packages:
             }
         cpu: [riscv64]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-linux-s390x-gnu@4.59.0':
         resolution:
@@ -2156,6 +2224,7 @@ packages:
             }
         cpu: [s390x]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-x64-gnu@4.59.0':
         resolution:
@@ -2164,6 +2233,7 @@ packages:
             }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@rollup/rollup-linux-x64-musl@4.59.0':
         resolution:
@@ -2172,6 +2242,7 @@ packages:
             }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@rollup/rollup-openbsd-x64@4.59.0':
         resolution:
@@ -2306,6 +2377,7 @@ packages:
         engines: { node: '>= 20' }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     '@tailwindcss/oxide-linux-arm64-musl@4.2.0':
         resolution:
@@ -2315,6 +2387,7 @@ packages:
         engines: { node: '>= 20' }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     '@tailwindcss/oxide-linux-x64-gnu@4.2.0':
         resolution:
@@ -2324,6 +2397,7 @@ packages:
         engines: { node: '>= 20' }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     '@tailwindcss/oxide-linux-x64-musl@4.2.0':
         resolution:
@@ -2333,6 +2407,7 @@ packages:
         engines: { node: '>= 20' }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     '@tailwindcss/oxide-wasm32-wasi@4.2.0':
         resolution:
@@ -4145,6 +4220,12 @@ packages:
             }
         engines: { node: '>=18' }
 
+    izitoast@1.4.0:
+        resolution:
+            {
+                integrity: sha512-Oc1X2wiQtPp39i5VpIjf3GJf5sfCtHKXZ5szx7RareyEeFLUlcEW0FSfBni28+Ul6KNKZRKzhVuWzSP4Xngh0w==,
+            }
+
     jackspeak@3.4.3:
         resolution:
             {
@@ -4279,6 +4360,7 @@ packages:
         engines: { node: '>= 12.0.0' }
         cpu: [arm64]
         os: [linux]
+        libc: [glibc]
 
     lightningcss-linux-arm64-musl@1.31.1:
         resolution:
@@ -4288,6 +4370,7 @@ packages:
         engines: { node: '>= 12.0.0' }
         cpu: [arm64]
         os: [linux]
+        libc: [musl]
 
     lightningcss-linux-x64-gnu@1.31.1:
         resolution:
@@ -4297,6 +4380,7 @@ packages:
         engines: { node: '>= 12.0.0' }
         cpu: [x64]
         os: [linux]
+        libc: [glibc]
 
     lightningcss-linux-x64-musl@1.31.1:
         resolution:
@@ -4306,6 +4390,7 @@ packages:
         engines: { node: '>= 12.0.0' }
         cpu: [x64]
         os: [linux]
+        libc: [musl]
 
     lightningcss-win32-arm64-msvc@1.31.1:
         resolution:
@@ -4729,6 +4814,14 @@ packages:
             {
                 integrity: sha512-Y6an4zTf8AKTkIhTczl3jytNxIUk9tMIpxOMNUkn+aFsU8AI6CFy2qMEI8uQ402fkY9vCjhefjue9hQHrHdosg==,
             }
+
+    nuxt-toast@1.4.0:
+        resolution:
+            {
+                integrity: sha512-LGqzlRlLj4ildwAPL8w0MEQWN++DNLYhYPLT+ONkanofTI0yY/5HcUa4x+Y0vozII/Z1e51O3v1hDyCzEWFcHQ==,
+            }
+        peerDependencies:
+            izitoast: ^1.4.0
 
     nuxt@4.3.1:
         resolution:
@@ -6350,6 +6443,23 @@ packages:
             }
         peerDependencies:
             vue: ^3.5.0
+
+    vue-sonner@2.0.9:
+        resolution:
+            {
+                integrity: sha512-i6BokNlNDL93fpzNxN/LZSn6D6MzlO+i3qXt6iVZne3x1k7R46d5HlFB4P8tYydhgqOrRbIZEsnRd3kG7qGXyw==,
+            }
+        peerDependencies:
+            '@nuxt/kit': ^4.0.3
+            '@nuxt/schema': ^4.0.3
+            nuxt: ^4.0.3
+        peerDependenciesMeta:
+            '@nuxt/kit':
+                optional: true
+            '@nuxt/schema':
+                optional: true
+            nuxt:
+                optional: true
 
     vue@3.5.28:
         resolution:
@@ -8973,6 +9083,8 @@ snapshots:
 
     isexe@3.1.5: {}
 
+    izitoast@1.4.0: {}
+
     jackspeak@3.4.3:
         dependencies:
             '@isaacs/cliui': 8.0.2
@@ -9371,6 +9483,13 @@ snapshots:
         transitivePeerDependencies:
             - magicast
             - vue
+
+    nuxt-toast@1.4.0(izitoast@1.4.0)(magicast@0.5.2):
+        dependencies:
+            '@nuxt/kit': 4.3.1(magicast@0.5.2)
+            izitoast: 1.4.0
+        transitivePeerDependencies:
+            - magicast
 
     nuxt@4.3.1(@parcel/watcher@2.5.6)(@types/node@25.3.0)(@vue/compiler-sfc@3.5.28)(cac@6.7.14)(db0@0.3.4)(ioredis@5.9.3)(lightningcss@1.31.1)(magicast@0.5.2)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(yaml@2.8.2):
         dependencies:
@@ -10551,6 +10670,12 @@ snapshots:
         dependencies:
             '@vue/devtools-api': 6.6.4
             vue: 3.5.28(typescript@5.9.3)
+
+    vue-sonner@2.0.9(@nuxt/kit@4.3.1(magicast@0.5.2))(@nuxt/schema@4.3.1)(nuxt@4.3.1(@parcel/watcher@2.5.6)(@types/node@25.3.0)(@vue/compiler-sfc@3.5.28)(cac@6.7.14)(db0@0.3.4)(ioredis@5.9.3)(lightningcss@1.31.1)(magicast@0.5.2)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(yaml@2.8.2)):
+        optionalDependencies:
+            '@nuxt/kit': 4.3.1(magicast@0.5.2)
+            '@nuxt/schema': 4.3.1
+            nuxt: 4.3.1(@parcel/watcher@2.5.6)(@types/node@25.3.0)(@vue/compiler-sfc@3.5.28)(cac@6.7.14)(db0@0.3.4)(ioredis@5.9.3)(lightningcss@1.31.1)(magicast@0.5.2)(rollup@4.59.0)(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(yaml@2.8.2))(yaml@2.8.2)
 
     vue@3.5.28(typescript@5.9.3):
         dependencies:
