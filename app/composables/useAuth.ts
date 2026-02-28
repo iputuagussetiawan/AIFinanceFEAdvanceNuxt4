@@ -1,65 +1,81 @@
-import { useQuery } from '@tanstack/vue-query';
 import { authService } from '~/modules/auth/auth.service';
 import { userService } from '~/modules/user/user.service';
 
 export const useAuth = () => {
     const user = useState<any | null>('user', () => null);
     const token = useCookie('accessToken');
+    const loading = ref(false);
 
-    // 1. Define the Query
-    const { data, isLoading, isError, refetch } = useQuery({
-        queryKey: ['authUser'],
-        queryFn: () => userService.getUser(),
-        enabled: !!token.value, // Only run if token exists
-        refetchOnWindowFocus: false,
-        retry: 1,
-    });
+    // 1. Initial Fetch
+    const { data, refresh, pending } = useAsyncData(
+        'authUser',
+        async () => {
+            // Check if token exists inside the fetcher to prevent unnecessary calls
+            if (!token.value) return null;
+            return await userService.getUser();
+        },
+        {
+            immediate: !!token.value,
+            // Remove watch: [token] here to prevent it from auto-firing
+            // when we clear the token during logout.
+            server: true,
+        }
+    );
 
-    // 2. Sync Query data with global state
+    // 2. Manual Fetch
+    const fetchUser = async () => {
+        if (!token.value) return;
+        loading.value = true;
+        try {
+            const res = await userService.getUser();
+            user.value = res;
+        } catch (err) {
+            user.value = null;
+            token.value = null;
+        } finally {
+            loading.value = false;
+        }
+    };
+
+    // 3. Sync initial data
     watch(
         data,
         (newUser) => {
+            // Only update if newUser is actually an object, not null from a failed refresh
             if (newUser) user.value = newUser;
         },
         { immediate: true }
     );
 
-    // 3. Handle Errors
-    watch(isError, (failed) => {
-        if (failed) {
-            user.value = null;
-            token.value = null;
-        }
-    });
-
-    /** * 4. RE-ADD THE MISSING PROPERTY
-     * This computes the login status based on the global user state
-     */
     const isLoggedIn = computed(() => !!user.value);
 
+    // 4. Fixed Logout
     const logout = async () => {
         try {
-            // Memanggil fungsi yang sudah kita pindahkan ke service
+            // Stop further reactive triggers by clearing data cache first
+            clearNuxtData('authUser');
+
+            // Call API
             await authService.logout();
-        } catch (error) {
-            // Kita log error-nya saja, tapi tetap lanjut ke proses cleanup
-            console.error('Logout error from server:', error);
+        } catch (err) {
+            console.error('Logout error:', err);
         } finally {
-            // Selalu bersihkan state di frontend
+            // 5. Order of operations matters:
+            // First, clear the state
             user.value = null;
             token.value = null;
 
-            // Redirect ke halaman login
-            await navigateTo('/signin');
+            // Use 'replace: true' to ensure the user can't click "Back"
+            // and trigger a re-auth attempt
+            await navigateTo('/signin', { replace: true });
         }
     };
 
-    // 5. Ensure everything is returned here
     return {
         user,
-        isLoggedIn, // <--- Make sure this is here!
-        isLoading,
-        fetchUser: refetch,
+        isLoggedIn,
+        isLoading: computed(() => pending.value || loading.value),
+        fetchUser,
         logout,
     };
 };

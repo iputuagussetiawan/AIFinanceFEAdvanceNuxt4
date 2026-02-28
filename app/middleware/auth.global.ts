@@ -14,7 +14,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
      * Define routes that do not require authentication.
      * In this example, we consider '/signin' and '/signup' as public routes. you can adjust this list based on your actual route structure.
      */
-    const isPublic = ['/signin', '/signup'].includes(to.path);
+    const isPublic = [
+        '/signin',
+        '/signup',
+        '/forgot-password',
+        '/reset-password',
+    ].includes(to.path);
 
     /**
      * Case 1: User is NOT authenticated and tries to access a protected route.

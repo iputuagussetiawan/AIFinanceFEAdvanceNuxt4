@@ -1,4 +1,10 @@
-import type { LoginInput, RegisterInput } from './auth.validation';
+import { email } from 'zod/v4/mini';
+import type {
+    ForgotPasswordInput,
+    LoginInput,
+    RegisterInput,
+    ResetPasswordPayload,
+} from './auth.validation';
 
 export const authService = {
     async register(userData: RegisterInput) {
@@ -14,6 +20,25 @@ export const authService = {
         return await api('/api/auth/login', {
             method: 'POST',
             body: credentials,
+        });
+    },
+
+    async forgotPassword(email: ForgotPasswordInput) {
+        const api = useApi();
+        return await api('/api/auth/password/forgot', {
+            method: 'POST',
+            body: email,
+        });
+    },
+
+    async resetPassword(credentials: ResetPasswordPayload) {
+        const api = useApi();
+        return await api('/api/auth/password/reset', {
+            method: 'POST',
+            body: {
+                password: credentials.password,
+                verificationCode: credentials.verificationCode,
+            },
         });
     },
 

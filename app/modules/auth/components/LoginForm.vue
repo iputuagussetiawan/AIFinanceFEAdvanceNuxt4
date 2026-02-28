@@ -64,7 +64,10 @@ const onSubmit = handleSubmit((values: LoginInput) => {
 </script>
 
 <template>
-    <form :class="cn('flex flex-col gap-6', props.class)" @submit="onSubmit">
+    <form
+        :class="cn('flex flex-col gap-6', props.class)"
+        @submit.prevent="onSubmit"
+    >
         <FieldGroup>
             <div class="flex flex-col items-center gap-1 text-center">
                 <h1 class="text-2xl font-bold">Login to your account</h1>
@@ -80,13 +83,28 @@ const onSubmit = handleSubmit((values: LoginInput) => {
                 :disabled="isPending"
             />
 
-            <UiInput
-                name="password"
-                label="Password"
-                type="password"
-                placeholder="Enter your password"
-                :disabled="isPending"
-            />
+            <div class="flex flex-col">
+                <div class="flex items-center justify-between">
+                    <label
+                        for="password"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Password
+                    </label>
+                    <NuxtLink
+                        to="/forgot-password"
+                        class="text-sm text-muted-foreground hover:text-primary underline-offset-4 hover:underline transition-colors"
+                    >
+                        Forgot password?
+                    </NuxtLink>
+                </div>
+                <UiInput
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    :disabled="isPending"
+                />
+            </div>
 
             <p
                 v-if="error"
@@ -100,7 +118,7 @@ const onSubmit = handleSubmit((values: LoginInput) => {
             <Field>
                 <Button type="submit" class="w-full" :disabled="isPending">
                     <template v-if="isPending">
-                        <Loader2 v-if="isPending" class="size-4 animate-spin" />
+                        <Loader2 class="size-4 animate-spin mr-2" />
                         Logging in...
                     </template>
                     <template v-else>Login</template>
@@ -115,11 +133,11 @@ const onSubmit = handleSubmit((values: LoginInput) => {
                     Login with Google
                 </Button>
 
-                <div class="px-6 text-center mt-4">
+                <div class="px-6 text-center mt-4 text-sm">
                     Don't have an account?
                     <NuxtLink
                         to="/signup"
-                        class="underline underline-offset-4 hover:text-primary transition-colors"
+                        class="underline underline-offset-4 hover:text-primary transition-colors font-medium"
                     >
                         Sign up
                     </NuxtLink>
