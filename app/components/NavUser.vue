@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { user, logout } = useAuth();
+const { logout } = useAuth();
 import {
     BadgeCheck,
     Bell,
@@ -25,14 +25,15 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { getInitials } from '~/lib/text-formater';
 
-// const props = defineProps<{
-//     user: {
-//         name: string;
-//         email: string;
-//         avatar: string;
-//     };
-// }>();
+const props = defineProps<{
+    user: {
+        name: string;
+        email: string;
+        avatar: string;
+    };
+}>();
 
 const { isMobile } = useSidebar();
 </script>
@@ -48,21 +49,21 @@ const { isMobile } = useSidebar();
                     >
                         <Avatar class="h-8 w-8 rounded-lg">
                             <AvatarImage
-                                :src="user?.user.profilePicture"
-                                :alt="user?.user.name"
+                                :src="user?.avatar || ''"
+                                :alt="user?.name || 'User Avatar'"
                             />
                             <AvatarFallback class="rounded-lg">
-                                CN
+                                {{ getInitials(user?.name) }}
                             </AvatarFallback>
                         </Avatar>
                         <div
                             class="grid flex-1 text-left text-sm leading-tight"
                         >
                             <span class="truncate font-medium">{{
-                                user?.user.name
+                                user?.name
                             }}</span>
                             <span class="truncate text-xs">{{
-                                user?.user.email
+                                user?.email
                             }}</span>
                         </div>
                         <ChevronsUpDown class="ml-auto size-4" />
@@ -80,21 +81,21 @@ const { isMobile } = useSidebar();
                         >
                             <Avatar class="h-8 w-8 rounded-lg">
                                 <AvatarImage
-                                    :src="user?.user.profilePicture"
-                                    :alt="user?.user.name"
+                                    :src="user.avatar || ''"
+                                    :alt="user.name || 'User Avatar'"
                                 />
                                 <AvatarFallback class="rounded-lg">
-                                    CN
+                                    {{ getInitials(user.name) }}
                                 </AvatarFallback>
                             </Avatar>
                             <div
                                 class="grid flex-1 text-left text-sm leading-tight"
                             >
                                 <span class="truncate font-semibold">{{
-                                    user?.user.name
+                                    user.name
                                 }}</span>
                                 <span class="truncate text-xs">{{
-                                    user?.user.email
+                                    user.email
                                 }}</span>
                             </div>
                         </div>

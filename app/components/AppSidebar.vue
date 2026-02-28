@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SidebarProps } from '@/components/ui/sidebar';
+const { user, logout } = useAuth();
 
 import {
     AudioWaveform,
@@ -30,13 +31,15 @@ const props = withDefaults(defineProps<SidebarProps>(), {
     collapsible: 'icon',
 });
 
+const currentUser = computed(() => ({
+    name: user.value?.user.name || '',
+    email: user.value?.user.email || '',
+    avatar: user.value?.user.profilePicture || '', // Match your API field name
+}));
+
 // This is sample data.
 const data = {
-    user: {
-        name: 'shadcn',
-        email: 'm@example.com',
-        avatar: '/avatars/shadcn.jpg',
-    },
+    user: currentUser,
     teams: [
         {
             name: 'Acme Inc',
@@ -164,14 +167,18 @@ const data = {
 <template>
     <Sidebar v-bind="props">
         <SidebarHeader>
-            <TeamSwitcher :teams="data.teams" />
+            <ClientOnly>
+                <TeamSwitcher :teams="data.teams" />
+            </ClientOnly>
         </SidebarHeader>
         <SidebarContent>
             <NavMain :items="data.navMain" />
             <NavProjects :projects="data.projects" />
         </SidebarContent>
         <SidebarFooter>
-            <NavUser :user="data.user" />
+            <ClientOnly>
+                <NavUser :user="currentUser" />
+            </ClientOnly>
         </SidebarFooter>
         <SidebarRail />
     </Sidebar>
