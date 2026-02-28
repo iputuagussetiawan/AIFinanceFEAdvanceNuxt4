@@ -22,6 +22,7 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar';
 import Sessions from './components/Sessions.vue';
+import ModeToggle from '~/components/ModeToggle.vue';
 
 // Move composable here for proper reactivity
 const { user, logout } = useAuth();
@@ -32,36 +33,40 @@ const { user, logout } = useAuth();
         <AppSidebar />
         <SidebarInset>
             <header
-                class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
+                class="sticky top-0 z-50 bg-background/60 backdrop-blur-md border-b flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
             >
-                <div class="flex items-center gap-2 px-4">
-                    <SidebarTrigger class="-ml-1" />
-                    <Separator
-                        orientation="vertical"
-                        class="mr-2 data-[orientation=vertical]:h-4"
-                    />
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            <BreadcrumbItem class="hidden md:block">
-                                <BreadcrumbLink href="#">
-                                    Building Your Application
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator class="hidden md:block" />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage
-                                    >Security & Sessions</BreadcrumbPage
-                                >
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
+                <div
+                    class="flex items-center justify-between gap-2 px-4 w-full"
+                >
+                    <div class="flex items-center">
+                        <SidebarTrigger class="-ml-1" />
+                        <Separator
+                            orientation="vertical"
+                            class="mr-2 data-[orientation=vertical]:h-4"
+                        />
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem class="hidden md:block">
+                                    <BreadcrumbLink href="#">
+                                        Building Your Application
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator class="hidden md:block" />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage
+                                        >Security & Sessions</BreadcrumbPage
+                                    >
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+
+                    <ModeToggle />
                 </div>
             </header>
 
             <div class="flex flex-col min-h-screen">
-                <header
-                    class="mx-auto w-full max-w-3xl px-6 py-10 md:max-w-5xl"
-                >
+                <div class="mx-auto w-full max-w-3xl px-6 py-10 md:max-w-5xl">
                     <h1
                         class="text-3xl tracking-tight text-foreground sm:text-4xl"
                     >
@@ -72,9 +77,9 @@ const { user, logout } = useAuth();
                         <span class="font-medium text-foreground">I Putu</span>.
                         Follow the steps to activate using Squeezy.
                     </p>
-                </header>
+                </div>
 
-                <main
+                <div
                     class="relative mx-auto w-full max-w-3xl px-6 md:max-w-5xl"
                 >
                     <div
@@ -87,8 +92,12 @@ const { user, logout } = useAuth();
                                 class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
                             >
                                 <div
-                                    class="h-2.5 w-2.5 rounded-full bg-primary"
-                                />
+                                    class="absolute inset-0 rounded-full bg-primary opacity-0 group-hover:animate-ping group-hover:opacity-40"
+                                ></div>
+
+                                <div
+                                    class="relative h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]"
+                                ></div>
                             </div>
 
                             <div class="space-y-4">
@@ -103,8 +112,12 @@ const { user, logout } = useAuth();
                                 class="absolute -left-2.5 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-background border border-border group-hover:border-primary transition-colors"
                             >
                                 <div
-                                    class="h-2.5 w-2.5 rounded-full bg-primary"
-                                />
+                                    class="absolute inset-0 rounded-full bg-primary opacity-0 group-hover:animate-ping group-hover:opacity-40"
+                                ></div>
+
+                                <div
+                                    class="relative h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]"
+                                ></div>
                             </div>
 
                             <div class="space-y-4">
@@ -115,7 +128,7 @@ const { user, logout } = useAuth();
                             </div>
                         </section>
                     </div>
-                </main>
+                </div>
             </div>
         </SidebarInset>
     </SidebarProvider>
