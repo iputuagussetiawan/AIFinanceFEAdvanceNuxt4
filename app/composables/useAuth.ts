@@ -23,6 +23,7 @@ export const useAuth = () => {
     const user = useState<IUserResponse | null>('user', () => null);
     const token = useCookie('accessToken');
     const loading = ref(false);
+    const { $api } = useNuxtApp();
 
     // 1. Initial Fetch
     const { data, pending } = useAsyncData(
@@ -30,7 +31,7 @@ export const useAuth = () => {
         async () => {
             if (!token.value) return null;
             // Fetch the raw response from the service
-            return await userService.getUser();
+            return await $api.user.getProfile();
             // Return ONLY the user part. This is what 'data' will hold.
         },
         {
@@ -46,7 +47,7 @@ export const useAuth = () => {
         if (!token.value) return;
         loading.value = true;
         try {
-            const res = await userService.getUser();
+            const res = await $api.user.getProfile();
             user.value = res.user;
         } catch (err) {
             user.value = null;
@@ -74,7 +75,7 @@ export const useAuth = () => {
         try {
             // Clear Nuxt cache so a new login doesn't show old user data
             clearNuxtData('authUser');
-            await authService.logout();
+            await $api.auth.logout();
         } catch (err) {
             console.error('Logout error:', err);
         } finally {

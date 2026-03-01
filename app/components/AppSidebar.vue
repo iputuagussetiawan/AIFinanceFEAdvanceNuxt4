@@ -172,8 +172,8 @@ const data = {
             </ClientOnly>
         </SidebarHeader>
         <SidebarContent>
-            <NavMain :items="data.navMain" />
-            <NavProjects :projects="data.projects" />
+            <!-- <NavMain :items="data.navMain" /> -->
+            <!-- <NavProjects :projects="data.projects" /> -->
         </SidebarContent>
         <SidebarFooter>
             <ClientOnly>

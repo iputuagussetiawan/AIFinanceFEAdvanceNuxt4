@@ -13,6 +13,7 @@ import { Loader2 } from 'lucide-vue-next';
 const { user } = useAuth();
 const toast = useToast();
 
+const { $api } = useNuxtApp();
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
@@ -23,7 +24,7 @@ const { handleSubmit } = useForm<LoginInput>({
 });
 
 const { mutate, isPending, error } = useMutation({
-    mutationFn: (credentials: LoginInput) => authService.login(credentials),
+    mutationFn: (credentials: LoginInput) => $api.auth.login(credentials),
 
     onSuccess: async (data) => {
         console.log('Login successful');
