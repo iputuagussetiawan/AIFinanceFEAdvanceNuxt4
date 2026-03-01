@@ -10,8 +10,9 @@ import { LoginSchema, type LoginInput } from '../auth.validation';
 import { useMutation } from '@tanstack/vue-query';
 import { authService } from '../auth.service';
 import { Loader2 } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
+
 const { user } = useAuth();
-const toast = useToast();
 
 const { $api } = useNuxtApp();
 const props = defineProps<{
@@ -39,10 +40,7 @@ const { mutate, isPending, error } = useMutation({
             user: data.user,
         };
         user.value = userLoginData;
-        toast.success({
-            title: 'Success!',
-            message: 'Your action was completed successfully.',
-        });
+        toast.success('Login Success');
         // 3. Redirect to dashboard
         await navigateTo('/dashboard');
     },
@@ -74,6 +72,10 @@ const { mutate, isPending, error } = useMutation({
 const onSubmit = handleSubmit((values: LoginInput) => {
     mutate(values);
 });
+
+const showToast = () => {
+    toast.warning('Error');
+};
 </script>
 
 <template>
@@ -157,5 +159,6 @@ const onSubmit = handleSubmit((values: LoginInput) => {
                 </div>
             </Field>
         </FieldGroup>
+        <Button @click="showToast">Test Toats</Button>
     </form>
 </template>

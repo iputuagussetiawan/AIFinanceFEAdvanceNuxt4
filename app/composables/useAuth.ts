@@ -1,5 +1,4 @@
-import { authService } from '~/modules/auth/auth.service';
-import { userService } from '~/modules/user/user.service';
+import { toast } from 'vue-sonner';
 
 export interface IUser {
     _id: string;
@@ -76,6 +75,7 @@ export const useAuth = () => {
             // Clear Nuxt cache so a new login doesn't show old user data
             clearNuxtData('authUser');
             await $api.auth.logout();
+            toast.success('Success Logout');
         } catch (err) {
             console.error('Logout error:', err);
         } finally {
