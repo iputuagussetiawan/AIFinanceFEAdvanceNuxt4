@@ -18,8 +18,6 @@ import ModeToggle from '~/components/ModeToggle.vue';
 import SecuritySettings from '~/modules/session/components/SecuritySettings.vue';
 
 const { user, logout } = useAuth();
-
-const token = useCookie('accessToken', { path: '/' });
 </script>
 
 <template>
@@ -59,8 +57,6 @@ const token = useCookie('accessToken', { path: '/' });
                 </div>
             </header>
             <main>
-                <pre>{{ token }}</pre>
-                <pre>{{ user }}</pre>
                 <SecuritySettings />
             </main>
         </SidebarInset>

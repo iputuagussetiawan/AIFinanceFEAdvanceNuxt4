@@ -1,46 +1,36 @@
 // File: repository/factory.ts
 
 import { defu } from 'defu';
-import {
-    useCookie,
-    useRequestHeaders,
-    useRuntimeConfig,
-    type UseFetchOptions,
-} from 'nuxt/app';
+import { useRequestHeaders, useRuntimeConfig } from 'nuxt/app';
 import { toValue, type MaybeRefOrGetter } from 'vue';
+// 1. Import NitroFetchOptions instead of UseFetchOptions
+import type { NitroFetchOptions, NitroFetchRequest } from 'nitropack';
 
 class FetchFactory<T> {
-    async call(
+    async API(
         url: MaybeRefOrGetter<string>,
-        options: UseFetchOptions<T> = {}
+        // 2. Update the type here
+        options: NitroFetchOptions<NitroFetchRequest> = {}
     ): Promise<T> {
-        const clientCookies = useRequestHeaders(['cookie']);
         const config = useRuntimeConfig();
         const appBaseUrl = config.public.appBaseUrl;
+        const serverSideCookies = useRequestHeaders(['cookie']);
 
-        const headers: any = {
-            Accept: 'application/json',
-            Origin: appBaseUrl,
-            ...clientCookies,
+        const defaults: NitroFetchOptions<NitroFetchRequest> = {
+            baseURL: appBaseUrl,
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                ...serverSideCookies,
+            },
         };
 
-        const ACCESS_TOKEN = useCookie('accessToken');
-
-        if (ACCESS_TOKEN.value) {
-            headers['Authorization'] = `Bearer ${ACCESS_TOKEN.value}`;
-        }
-
-        const defaults: UseFetchOptions<T> = {
-            key: toValue(url),
-            headers,
-        };
-
+        // 3. Merge with defu
         const params = defu(options, defaults);
 
         try {
-            // Use $fetch for server-side and client-side requests
-            return await $fetch<T>(url, params);
-        } catch (error) {
+            return await $fetch<T>(toValue(url), params);
+        } catch (error: any) {
             throw error;
         }
     }

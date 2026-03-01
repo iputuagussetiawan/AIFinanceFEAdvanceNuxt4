@@ -5,7 +5,7 @@ import FetchFactory from '../factory';
 // Create the ProductModule class
 class UserModule extends FetchFactory<any> {
     getProfile() {
-        return super.call('/api/user/current', {
+        return this.API('/api/user/current', {
             method: 'GET',
         });
     }
