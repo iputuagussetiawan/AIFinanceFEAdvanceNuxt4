@@ -15,6 +15,7 @@ import {
 import { Loader2 } from 'lucide-vue-next';
 import UiInput from '~/components/shared/UiInput.vue';
 
+const { $api } = useNuxtApp();
 const props = defineProps<{
     class?: HTMLAttributes['class'];
 }>();
@@ -26,7 +27,7 @@ const { handleSubmit, resetForm } = useForm<RegisterInput>({
 
 // 2. Setup Mutation
 const { mutate, isPending, error } = useMutation({
-    mutationFn: (newUser: RegisterInput) => authService.register(newUser),
+    mutationFn: (newUser: RegisterInput) => $api.auth.register(newUser),
     onSuccess: () => {
         resetForm();
         navigateTo('/signin');

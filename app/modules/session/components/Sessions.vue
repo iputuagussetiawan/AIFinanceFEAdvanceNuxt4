@@ -1,10 +1,8 @@
-<script lang="ts" setup>
-import { Loader2 } from 'lucide-vue-next';
-import SessionItem from './SessionItem.vue';
-</script>
+<script lang="ts" setup></script>
 <template>
     <div className="rounded-xl bg-linear-to-r p-0.5">
         <div className="rounded-[10px] p-6">
+            <pre></pre>
             <h3
                 className="text-xl tracking-[-0.16px] text-slate-12 font-bold mb-1"
             >
@@ -32,7 +30,7 @@ import SessionItem from './SessionItem.vue';
                         and are currently using it.
                     </p>
                 </div>
-                <div className="w-full">
+                <div className="w-full mt-4">
                     <div className="w-full py-2 border-b pb-5">
                         <SessionItem />
                     </div>
@@ -41,7 +39,7 @@ import SessionItem from './SessionItem.vue';
                             Other sessions
                         </h5>
                         <ul
-                            className="mt-4 w-full space-y-3 max-h-[400px
+                            className="mt-4 w-full space-y-4 max-h-[400px
                 overflow-y-auto
                 "
                         >
