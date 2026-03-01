@@ -25,7 +25,6 @@ const otherSessions = computed(() => {
 </script>
 <template>
     <div className="rounded-xl bg-linear-to-r p-0.5">
-        <pre>{{ data }}</pre>
         <div className="rounded-[10px] p-6">
             <h3
                 className="text-xl tracking-[-0.16px] text-slate-12 font-bold mb-1"

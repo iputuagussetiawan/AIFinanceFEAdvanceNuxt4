@@ -29,19 +29,20 @@ const parsedDetails = computed(() => {
     let os = 'Unknown OS';
     let Icon = Monitor;
 
-    // Detect Browser
-    if (ua.includes('Chrome')) browser = 'Google Chrome';
+    // 1. Detect Browser - ORDER MATTERS!
+    // Check for Edge/Apidog FIRST because they also contain the word "Chrome"
+    if (ua.includes('Edg/')) browser = 'Microsoft Edge';
+    else if (ua.includes('Apidog')) browser = 'Apidog Client';
+    else if (ua.includes('Chrome')) browser = 'Google Chrome';
     else if (ua.includes('Firefox')) browser = 'Firefox';
     else if (ua.includes('Safari') && !ua.includes('Chrome'))
         browser = 'Safari';
-    else if (ua.includes('Edge')) browser = 'Microsoft Edge';
-    else if (ua.includes('Apidog')) browser = 'Apidog Client';
 
-    // Detect OS & Icon
-    if (ua.includes('Windows')) {
+    // 2. Detect OS & Icon
+    if (ua.includes('Windows NT')) {
         os = 'Windows';
         Icon = Monitor;
-    } else if (ua.includes('Macintosh') || ua.includes('Mac OS X')) {
+    } else if (ua.includes('Macintosh')) {
         os = 'macOS';
         Icon = Laptop;
     } else if (ua.includes('iPhone')) {
@@ -50,9 +51,6 @@ const parsedDetails = computed(() => {
     } else if (ua.includes('Android')) {
         os = 'Android';
         Icon = Smartphone;
-    } else if (ua.includes('Linux')) {
-        os = 'Linux';
-        Icon = Monitor;
     }
 
     return { browser, os, Icon };
