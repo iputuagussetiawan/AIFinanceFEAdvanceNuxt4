@@ -27,23 +27,23 @@ const otherSessions = computed(() => {
     <div className="rounded-xl bg-linear-to-r p-0.5">
         <div className="rounded-[10px] p-6">
             <h3
-                className="text-xl tracking-[-0.16px] text-slate-12 font-bold mb-1"
+                className="text-1xl tracking-[-0.16px] text-slate-12 font-bold mb-1"
             >
                 Sessions
             </h3>
             <p
                 className="mb-6 max-w-xl text-sm text-[#0007149f] dark:text-gray-100 font-normal"
             >
-                Sessions are the devices you are using or that have used your
-                Squeezy These are the sessions where your account is currently
-                logged in. You can log out of each session.
+                Sessions are the devices you are using or that have used your AI
+                Finance Assistant These are the sessions where your account is
+                currently logged in. You can log out of each session.
             </p>
 
             <!-- <Loader2 className="animate-spin" /> -->
 
-            <div className="rounded-t-xl max-w-xl">
+            <div className="rounded-t-xl max-w-xl mt-4">
                 <div>
-                    <h5 className="text-base font-semibold">
+                    <h5 className="text-1xl font-semibold">
                         Current active session
                     </h5>
                     <p
@@ -64,8 +64,8 @@ const otherSessions = computed(() => {
                             "
                         />
                     </div>
-                    <div className="mt-4">
-                        <h5 className="text-base font-semibold">
+                    <div className="mt-8">
+                        <h5 className="text-1xl font-semibold">
                             Other sessions
                         </h5>
                         <ul
