@@ -14,6 +14,7 @@ import {
 
 import { Loader2 } from 'lucide-vue-next';
 import UiInput from '~/components/shared/UiInput.vue';
+const config = useRuntimeConfig();
 
 const { $api } = useNuxtApp();
 const props = defineProps<{
@@ -37,6 +38,15 @@ const { mutate, isPending, error } = useMutation({
 const onSubmit = handleSubmit((values: RegisterInput) => {
     mutate(values);
 });
+
+const handleGoogleRegister = () => {
+    // 1. Get your backend base URL from Nuxt config
+    const appBase = config.public.apiBaseUrl || 'http://localhost:8000';
+    const authUrl = `${appBase}/api/auth/google`;
+    // 2. Redirect the entire window to your Express route
+    // This triggers the Passport.js logic on the server
+    window.open(authUrl, '_blank');
+};
 </script>
 
 <template>
@@ -86,6 +96,7 @@ const onSubmit = handleSubmit((values: RegisterInput) => {
                     type="button"
                     class="w-full"
                     :disabled="isPending"
+                    @click="handleGoogleRegister"
                 >
                     <GoogleIcon class="size-4" />
                     Sign up with Google
