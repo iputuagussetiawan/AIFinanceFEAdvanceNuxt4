@@ -28,7 +28,7 @@ const { handleSubmit, setValues } = useForm({
     initialValues: {
         name: user.value?.user?.name || '',
         email: user.value?.user?.email || '',
-        bio: '',
+        bio: user.value?.user?.bio || '',
     },
 });
 
@@ -57,7 +57,7 @@ watch(
             setValues({
                 name: newUser.user.name,
                 email: newUser.user.email,
-                bio: '',
+                bio: newUser.user.bio,
             });
         }
     },

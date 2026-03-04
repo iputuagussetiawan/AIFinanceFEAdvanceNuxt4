@@ -11,7 +11,7 @@ class UserModule extends FetchFactory<any> {
         });
     }
 
-    updateProfile(payload: TProfileUpdate) {
+    updateProfile(payload: FormData) {
         return this.API('/api/user/update', {
             method: 'PUT',
             body: payload,

@@ -7,7 +7,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 export const profileObject = z.object({
     name: z.string().min(2, 'Name is required').max(100),
     email: z.string().email('Invalid email address'),
-    bio: z.string().max(160, 'Bio must be under 160 characters').optional(),
+    bio: z.string().max(260, 'Bio must be under 260 characters').optional(),
     // Add the image/avatar field
     profilePicture: z
         .instanceof(File)
