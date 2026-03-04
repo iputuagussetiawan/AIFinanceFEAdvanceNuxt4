@@ -109,9 +109,14 @@ const { isMobile } = useSidebar();
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <BadgeCheck />
-                            Account
+                        <DropdownMenuItem as-child>
+                            <NuxtLink
+                                to="/dashboard/profile"
+                                class="flex w-full items-center"
+                            >
+                                <BadgeCheck />
+                                Profile
+                            </NuxtLink>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <CreditCard />

@@ -8,7 +8,6 @@ import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
 import UiInput from '~/components/shared/UiInput.vue';
 import { LoginSchema, type LoginInput } from '../auth.validation';
 import { useMutation } from '@tanstack/vue-query';
-import { authService } from '../auth.service';
 import { Loader2 } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 const config = useRuntimeConfig();
