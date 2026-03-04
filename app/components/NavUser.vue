@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const { logout } = useAuth();
+const authStore = useAuthStore();
+
+// You can use these directly in the template
+const { user, isLoading } = storeToRefs(authStore);
 import {
     BadgeCheck,
     Bell,
@@ -51,22 +55,22 @@ const { isMobile } = useSidebar();
                             class="h-8 w-8 rounded-full shrink-0 overflow-hidden"
                         >
                             <AvatarImage
-                                :src="user?.avatar || ''"
-                                :alt="user?.name || 'User Avatar'"
+                                :src="user?.user.profilePicture || ''"
+                                :alt="user?.user.name || 'User Avatar'"
                                 class="aspect-square h-full w-full object-cover"
                             />
                             <AvatarFallback class="rounded-lg">
-                                {{ getInitials(user?.name) }}
+                                {{ getInitials(user?.user.name) }}
                             </AvatarFallback>
                         </Avatar>
                         <div
                             class="grid flex-1 text-left text-sm leading-tight"
                         >
                             <span class="truncate font-medium">{{
-                                user?.name
+                                user?.user.name
                             }}</span>
                             <span class="truncate text-xs">{{
-                                user?.email
+                                user?.user.email
                             }}</span>
                         </div>
                         <ChevronsUpDown class="ml-auto size-4" />
@@ -86,22 +90,22 @@ const { isMobile } = useSidebar();
                                 class="h-8 w-8 rounded-full shrink-0 overflow-hidden"
                             >
                                 <AvatarImage
-                                    :src="user.avatar || ''"
-                                    :alt="user.name || 'User Avatar'"
+                                    :src="user?.user.profilePicture || ''"
+                                    :alt="user?.user.name || 'User Avatar'"
                                     class="aspect-square h-full w-full object-cover"
                                 />
                                 <AvatarFallback class="rounded-lg">
-                                    {{ getInitials(user.name) }}
+                                    {{ getInitials(user?.user.name) }}
                                 </AvatarFallback>
                             </Avatar>
                             <div
                                 class="grid flex-1 text-left text-sm leading-tight"
                             >
                                 <span class="truncate font-semibold">{{
-                                    user.name
+                                    user?.user.name
                                 }}</span>
                                 <span class="truncate text-xs">{{
-                                    user.email
+                                    user?.user.email
                                 }}</span>
                             </div>
                         </div>

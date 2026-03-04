@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         'nuxt-lucide-icons',
         '@nuxt/image',
         'nuxt-toast',
+        '@pinia/nuxt',
     ],
     plugins: ['~/plugins/vue-query.ts'],
     lucide: {

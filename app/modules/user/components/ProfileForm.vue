@@ -10,8 +10,12 @@ import UiInput from '~/components/shared/UiInput.vue';
 import { useMutation } from '@tanstack/vue-query';
 import { toast } from 'vue-sonner';
 
+const authStore = useAuthStore();
+
+// You can use these directly in the template
+const { user, isLoading } = storeToRefs(authStore);
+
 const { $api } = useNuxtApp();
-const { user, fetchUser } = useAuth();
 
 // 1. Image Upload & Preview State
 const fileInput = ref<HTMLInputElement | null>(null);
@@ -31,11 +35,12 @@ const { handleSubmit, setValues } = useForm({
 // 3. Mutation Setup (Using FormData for Image Support)
 const { mutate, isPending } = useMutation({
     mutationFn: (dataProfile: FormData) => $api.user.updateProfile(dataProfile),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
         toast.success('Profile Updated Successfully');
-        await fetchUser(); // Refresh user data globally
         previewImage.value = null;
         selectedFile.value = null;
+
+        await authStore.fetchUser();
     },
     onError: (err: any) => {
         const msg =
@@ -76,17 +81,15 @@ const onFileChange = (e: Event) => {
 
 const onSubmit = handleSubmit((values) => {
     const formData = new FormData();
-
-    // Fix: Use logical OR (||) to ensure it's a string, never undefined
     formData.append('name', values.name || '');
     formData.append('email', values.email || '');
     formData.append('bio', values.bio || '');
 
-    // For the file, it's already a File object (which is a type of Blob)
     if (selectedFile.value) {
         formData.append('profilePicture', selectedFile.value);
     }
 
+    // Just call mutate. onSuccess handles the rest.
     mutate(formData);
 });
 </script>
@@ -212,7 +215,7 @@ const onSubmit = handleSubmit((values) => {
                         >
                             <Loader2Icon
                                 v-if="isPending"
-                                class="mr-2 h-4 w-4 animate-spin"
+                                class="h-4 w-4 animate-spin"
                             />
 
                             <span>
