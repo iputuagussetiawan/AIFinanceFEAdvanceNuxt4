@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/vue-query';
 import { authService } from '../auth.service';
 import { Loader2 } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
+const config = useRuntimeConfig();
 
 const { user } = useAuth();
 
@@ -75,6 +76,15 @@ const onSubmit = handleSubmit((values: LoginInput) => {
 
 const showToast = () => {
     toast.warning('Error');
+};
+
+const handleGoogleLogin = () => {
+    // 1. Get your backend base URL from Nuxt config
+    const appBase = config.public.apiBaseUrl || 'http://localhost:8000';
+    const authUrl = `${appBase}/auth/google`;
+    // 2. Redirect the entire window to your Express route
+    // This triggers the Passport.js logic on the server
+    window.open(authUrl, '_blank');
 };
 </script>
 
@@ -143,7 +153,12 @@ const showToast = () => {
             <FieldSeparator>Or continue with</FieldSeparator>
 
             <Field>
-                <Button variant="outline" type="button" class="w-full">
+                <Button
+                    @click="handleGoogleLogin"
+                    variant="outline"
+                    type="button"
+                    class="w-full"
+                >
                     <GoogleIcon class="size-4" />
                     Login with Google
                 </Button>

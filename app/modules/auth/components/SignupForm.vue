@@ -42,7 +42,7 @@ const onSubmit = handleSubmit((values: RegisterInput) => {
 const handleGoogleRegister = () => {
     // 1. Get your backend base URL from Nuxt config
     const appBase = config.public.apiBaseUrl || 'http://localhost:8000';
-    const authUrl = `${appBase}/api/auth/google`;
+    const authUrl = `${appBase}/auth/google`;
     // 2. Redirect the entire window to your Express route
     // This triggers the Passport.js logic on the server
     window.open(authUrl, '_blank');
