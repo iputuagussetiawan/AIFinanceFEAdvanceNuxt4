@@ -15,6 +15,7 @@ import {
 import { Loader2 } from 'lucide-vue-next';
 import UiInput from '~/components/shared/UiInput.vue';
 import UiButtonCustom from '~/components/shared/UiButtonCustom.vue';
+const { $gsap, $scrollTrigger } = useNuxtApp();
 const config = useRuntimeConfig();
 
 const { $api } = useNuxtApp();
@@ -48,6 +49,10 @@ const handleGoogleRegister = () => {
     // This triggers the Passport.js logic on the server
     window.open(authUrl, '_blank');
 };
+
+onMounted(() => {
+    $gsap.to('.box', { rotation: 360 });
+});
 </script>
 
 <template>
