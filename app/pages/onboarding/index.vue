@@ -54,9 +54,7 @@ const handleContinue = () => {
 </script>
 
 <template>
-    <div
-        class="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 via-white to-gray-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4 transition-colors duration-500"
-    >
+    <div class="min-h-screen flex items-center justify-center bg-linear-to-br">
         <div class="w-full max-w-2xl">
             <motion.div
                 :initial="{ opacity: 0, y: -20 }"
@@ -69,7 +67,7 @@ const handleContinue = () => {
                 >
                     How will you use
                     <span
-                        class="block bg-linear-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-teal-300 bg-clip-text text-transparent mt-1"
+                        class="block bg-linear-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-teal-700 bg-clip-text text-transparent mt-1"
                     >
                         our platform?
                     </span>

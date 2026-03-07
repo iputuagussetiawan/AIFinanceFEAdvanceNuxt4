@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import AppLogo from '~/components/shared/AppLogo.vue';
+import { cn } from '~/lib/utils';
 </script>
 
 <template>
-    <div>
+    <!-- <div>
         <div class="grid min-h-svh lg:grid-cols-2">
             <div class="flex flex-col gap-4 p-6 md:p-10">
                 <div class="flex justify-center gap-2 md:justify-start">
@@ -24,18 +25,16 @@ import AppLogo from '~/components/shared/AppLogo.vue';
                 />
             </div>
         </div>
+    </div> -->
+    <div
+        class="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10"
+    >
+        <div class="w-full max-w-sm md:max-w-4xl">
+            <slot />
+        </div>
     </div>
 </template>
 
 <style scoped>
 /* Ensure smooth transitions between auth pages */
-.page-enter-active,
-.page-leave-active {
-    transition: all 0.2s;
-}
-.page-enter-from,
-.page-leave-to {
-    opacity: 0;
-    filter: blur(0.5rem);
-}
 </style>

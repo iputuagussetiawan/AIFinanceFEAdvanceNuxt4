@@ -1,15 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
     const { user, fetchUser } = useAuth();
-
-    /**
-     * If user state is empty, attempt to fetch user data from the API.
-     * This relies on the 'accessToken' cookie being present and valid.
-     * If the token is invalid/expired, fetchUser will handle clearing the state.
-     */
-    if (!user.value) {
-        await fetchUser();
-    }
-
     /**
      * Define routes that do not require authentication.
      * In this example, we consider '/signin' and '/signup' as public routes. you can adjust this list based on your actual route structure.
@@ -17,9 +7,19 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const isPublic = [
         '/signin',
         '/signup',
+        '/signup-pro',
         '/forgot-password',
         '/reset-password',
     ].includes(to.path);
+
+    /**
+     * If user state is empty, attempt to fetch user data from the API.
+     * This relies on the 'accessToken' cookie being present and valid.
+     * If the token is invalid/expired, fetchUser will handle clearing the state.
+     */
+    if (!user.value && !isPublic) {
+        await fetchUser();
+    }
 
     /**
      * Case 1: User is NOT authenticated and tries to access a protected route.
