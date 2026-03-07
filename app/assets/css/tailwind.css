@@ -125,18 +125,22 @@
     }
 }
 
-/* Transition duration and timing */
 .page-enter-active,
 .page-leave-active {
-    @apply transition-all duration-300 ease-in-out;
+    /* Transition both opacity and the blur filter */
+    @apply transition-all duration-100 ease-in-out;
 }
 
-/* Entering state: where the page starts (hidden and shifted right) */
-.page-enter-from {
-    @apply opacity-0 translate-x-4;
-}
-
-/* Leaving state: where the page ends (hidden and shifted left) */
+.page-enter-from,
 .page-leave-to {
-    @apply opacity-0 -translate-x-4;
+    @apply opacity-0; /* blur-lg is equivalent to 1rem / 16px */
+}
+
+/* Style A: The Flip */
+.auth-enter-active,
+.auth-leave-active {
+    @apply transition-all duration-500;
+}
+.auth-enter-from {
+    @apply opacity-0 blur-lg;
 }
