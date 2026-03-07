@@ -10,6 +10,9 @@ import { LoginSchema, type LoginInput } from '../auth.validation';
 import { useMutation } from '@tanstack/vue-query';
 import { Loader2 } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
+import UiInput2 from '~/components/shared/UiInput2.vue';
+import UiButtonCustom from '~/components/shared/UiButtonCustom.vue';
+import UiButtonSocial from '~/components/shared/UiButtonSocial.vue';
 const config = useRuntimeConfig();
 
 const { user } = useAuth();
@@ -88,91 +91,74 @@ const handleGoogleLogin = () => {
 </script>
 
 <template>
-    <form
-        :class="cn('flex flex-col gap-6', props.class)"
-        @submit.prevent="onSubmit"
-    >
-        <FieldGroup>
-            <div class="flex flex-col items-center gap-1 text-center">
-                <h1 class="text-2xl font-bold">Login to your account</h1>
-                <p class="text-muted-foreground text-sm text-balance">
-                    Enter your email below to login to your account
-                </p>
-            </div>
-
-            <UiInput
-                name="email"
-                label="Email"
-                placeholder="Enter your email"
-                :disabled="isPending"
-            />
-
-            <div class="flex flex-col">
-                <div class="flex items-center justify-between">
-                    <label
-                        for="password"
-                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                        Password
-                    </label>
-                    <NuxtLink
-                        to="/forgot-password"
-                        class="text-sm text-muted-foreground hover:text-primary underline-offset-4 hover:underline transition-colors"
-                    >
-                        Forgot password?
-                    </NuxtLink>
-                </div>
-                <UiInput
-                    name="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    :disabled="isPending"
-                />
-            </div>
-
-            <p
-                v-if="error"
-                class="text-destructive text-sm text-center font-medium"
-            >
-                {{
-                    (error as any).data?.message || 'Invalid email or password'
-                }}
+    <div>
+        <div class="flex flex-col gap-1 font-barlow mb-8">
+            <h1 class="text-2xl font-bold uppercase">Create your account</h1>
+            <p class="text-muted-foreground text-sm text-balance">
+                Fill in the form below to create your account
             </p>
+        </div>
+        <form @submit.prevent="onSubmit">
+            <FieldGroup>
+                <div class="grid gap-8">
+                    <UiInput2
+                        name="email"
+                        label="Email"
+                        placeholder="Enter your email"
+                        :disabled="isPending"
+                    />
 
-            <Field>
-                <Button type="submit" class="w-full" :disabled="isPending">
-                    <template v-if="isPending">
-                        <Loader2 class="size-4 animate-spin mr-2" />
-                        Logging in...
-                    </template>
-                    <template v-else>Login</template>
-                </Button>
-            </Field>
-
-            <FieldSeparator>Or continue with</FieldSeparator>
-
-            <Field>
-                <Button
-                    @click="handleGoogleLogin"
-                    variant="outline"
-                    type="button"
-                    class="w-full"
-                >
-                    <GoogleIcon class="size-4" />
-                    Login with Google
-                </Button>
-
-                <div class="px-6 text-center mt-4 text-sm">
-                    Don't have an account?
-                    <NuxtLink
-                        to="/signup"
-                        class="underline underline-offset-4 hover:text-primary transition-colors font-medium"
-                    >
-                        Sign up
-                    </NuxtLink>
+                    <UiInput2
+                        name="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        :disabled="isPending"
+                    />
                 </div>
-            </Field>
-        </FieldGroup>
-        <Button @click="showToast">Test Toats</Button>
-    </form>
+
+                <p
+                    v-if="error"
+                    class="text-destructive text-sm text-center font-medium"
+                >
+                    {{
+                        (error as any).data?.message ||
+                        'Invalid email or password'
+                    }}
+                </p>
+
+                <Field>
+                    <UiButtonCustom :loading="isPending">
+                        <template v-if="isPending">
+                            <Loader2 class="size-4 animate-spin mr-2" />
+                            Logging in...
+                        </template>
+                        <template v-else>Login</template>
+                    </UiButtonCustom>
+                </Field>
+
+                <FieldSeparator>Or continue with</FieldSeparator>
+
+                <Field>
+                    <UiButtonSocial
+                        label="Sign up with Google"
+                        @click="handleGoogleLogin"
+                    >
+                        <template #icon>
+                            <GoogleIcon class="size-4" />
+                        </template>
+                    </UiButtonSocial>
+
+                    <div class="px-6 text-center mt-4 text-sm">
+                        Don't have an account?
+                        <NuxtLink
+                            to="/signup"
+                            class="underline underline-offset-4 hover:text-primary transition-colors font-medium"
+                        >
+                            Sign up
+                        </NuxtLink>
+                    </div>
+                </Field>
+            </FieldGroup>
+        </form>
+    </div>
 </template>

@@ -5,14 +5,14 @@
 <template>
     <div>
         <NuxtLink
-            to="/signin-pro"
+            to="/signup-pro"
             class="text-sm text-primary hover:underline mb-4 block"
         >
-            Signin Pro
+            Signup Pro
         </NuxtLink>
 
         <h2 class="font-barlow text-2xl font-bold uppercase tracking-widest">
-            Signup test
+            Signin test
         </h2>
     </div>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
+
+import { FieldSeparator } from '@/components/ui/field';
 import { useForm } from 'vee-validate';
 import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
 import { useMutation } from '@tanstack/vue-query';
-import { authService } from '~/modules/auth/auth.service';
+import UiInput2 from '~/components/shared/UiInput2.vue';
+import UiButtonSocial from '~/components/shared/UiButtonSocial.vue';
 import {
     RegisterSchema,
     type RegisterInput,
@@ -14,6 +14,7 @@ import {
 
 import { Loader2 } from 'lucide-vue-next';
 import UiInput from '~/components/shared/UiInput.vue';
+import UiButtonCustom from '~/components/shared/UiButtonCustom.vue';
 const config = useRuntimeConfig();
 
 const { $api } = useNuxtApp();
@@ -50,107 +51,72 @@ const handleGoogleRegister = () => {
 </script>
 
 <template>
-    <div :class="cn('flex flex-col gap-6', props.class)">
-        <Card class="overflow-hidden p-0">
-            <CardContent class="grid p-0 md:grid-cols-2">
-                <div class="bg-muted relative hidden md:block">
-                    <!-- <img
-            src="/placeholder.svg"
-            alt="Image"
-            class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-          > -->
-                </div>
-                <form class="p-6 md:p-8" @submit="onSubmit">
-                    <FieldGroup>
-                        <div
-                            class="flex flex-col items-center gap-1 text-center"
-                        >
-                            <h1 class="text-2xl font-bold">
-                                Create your account
-                            </h1>
-                            <p
-                                class="text-muted-foreground text-sm text-balance"
-                            >
-                                Fill in the form below to create your account
-                            </p>
-                        </div>
-                        <UiInput
-                            name="name"
-                            label="Full Name"
-                            placeholder="Enter your name"
-                            :disabled="isPending"
-                        />
-                        <UiInput
-                            name="email"
-                            label="Email"
-                            placeholder="Enter your email"
-                            :disabled="isPending"
-                        />
-                        <UiInput
-                            name="password"
-                            label="Password"
-                            type="password"
-                            placeholder="Enter your password"
-                            :disabled="isPending"
-                        />
-                        <Field>
-                            <Button
-                                type="submit"
-                                class="w-full"
-                                :disabled="isPending"
-                            >
-                                <template v-if="isPending"
-                                    ><Loader2
-                                        v-if="isPending"
-                                        class="size-4 animate-spin"
-                                    />
-                                    Create Account...</template
-                                >
-                                <template v-else>Create Account</template>
-                            </Button>
-                        </Field>
-                        <FieldSeparator>Or continue with</FieldSeparator>
-                        <Field>
-                            <Button
-                                variant="outline"
-                                type="button"
-                                class="w-full"
-                                :disabled="isPending"
-                                @click="handleGoogleRegister"
-                            >
-                                <GoogleIcon class="size-4" />
-                                Sign up with Google
-                            </Button>
+    <div>
+        <div class="flex flex-col gap-1 font-barlow mb-8">
+            <h1 class="text-2xl font-bold uppercase">Create your account</h1>
+            <p class="text-muted-foreground text-sm text-balance">
+                Fill in the form below to create your account
+            </p>
+        </div>
 
-                            <p
-                                v-if="error"
-                                class="text-destructive text-xs text-center mt-2"
-                            >
-                                {{
-                                    (error as any).data?.message ||
-                                    'An error occurred during registration'
-                                }}
-                            </p>
+        <form @submit="onSubmit">
+            <div class="grid gap-8">
+                <UiInput2
+                    name="name"
+                    label="Full Name"
+                    placeholder="Enter your name"
+                />
 
-                            <div
-                                class="px-6 text-center text-sm text-muted-foreground mt-4"
-                            >
-                                Already have an account?
-                                <NuxtLink
-                                    to="/signin"
-                                    class="underline underline-offset-4 hover:text-primary transition-colors"
-                                >
-                                    Sign in
-                                </NuxtLink>
-                            </div>
-                        </Field>
-                    </FieldGroup>
-                </form>
-            </CardContent>
-        </Card>
-        <!-- <FieldDescription class="px-6 text-center">
-      By clicking continue, you agree to our <a href="#">Terms of Service</a>
-      and <a href="#">Privacy Policy</a>.
-    </FieldDescription> -->
+                <UiInput2
+                    name="email"
+                    label="Your Email"
+                    type="email"
+                    placeholder="Enter your email"
+                />
+
+                <UiInput2
+                    name="password"
+                    label="Your Password"
+                    type="password"
+                    placeholder="Enter your password"
+                />
+
+                <UiButtonCustom :loading="isPending">
+                    <template v-if="isPending">
+                        <Loader2 class="size-4 animate-spin mr-2" />
+                        Creating Account...
+                    </template>
+                    <template v-else>Create Account</template>
+                </UiButtonCustom>
+            </div>
+
+            <FieldSeparator class="mt-8 mb-4">Or continue with</FieldSeparator>
+
+            <UiButtonSocial
+                label="Sign up with Google"
+                @click="handleGoogleRegister"
+            >
+                <template #icon>
+                    <GoogleIcon class="size-4" />
+                </template>
+            </UiButtonSocial>
+
+            <p v-if="error" class="text-destructive text-xs text-center mt-4">
+                {{
+                    (error as any).data?.message ||
+                    'An error occurred during registration'
+                }}
+            </p>
+
+            <div class="px-6 text-center text-sm text-muted-foreground mt-6">
+                Already have an account?
+                <NuxtLink
+                    to="/signin"
+                    class="underline underline-offset-4 hover:text-primary transition-colors"
+                >
+                    Sign in
+                </NuxtLink>
+            </div>
+        </form>
     </div>
 </template>

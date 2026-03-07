@@ -8,6 +8,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
         '/signin',
         '/signup',
         '/signup-pro',
+        '/signin-pro',
         '/forgot-password',
         '/reset-password',
     ].includes(to.path);

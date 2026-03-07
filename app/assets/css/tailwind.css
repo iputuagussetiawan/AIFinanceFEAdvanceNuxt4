@@ -124,3 +124,19 @@
         @apply bg-background text-foreground transition-colors duration-300;
     }
 }
+
+/* Transition duration and timing */
+.page-enter-active,
+.page-leave-active {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+/* Entering state: where the page starts (hidden and shifted right) */
+.page-enter-from {
+    @apply opacity-0 translate-x-4;
+}
+
+/* Leaving state: where the page ends (hidden and shifted left) */
+.page-leave-to {
+    @apply opacity-0 -translate-x-4;
+}
