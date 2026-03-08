@@ -4,13 +4,13 @@ import ScrollToPlugin from 'gsap/ScrollToPlugin';
 import { SplitText } from 'gsap/SplitText';
 import { Draggable } from 'gsap/Draggable';
 import { Observer } from 'gsap/Observer';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
+// import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 export default defineNuxtPlugin(() => {
     gsap.registerPlugin(
         Observer,
         ScrollTrigger,
-        ScrollSmoother,
+        // ScrollSmoother,
         ScrollToPlugin,
         SplitText
     );
@@ -19,17 +19,17 @@ export default defineNuxtPlugin(() => {
         gsap.registerPlugin(
             Draggable,
             ScrollTrigger,
-            ScrollSmoother,
+            // ScrollSmoother,
             ScrollToPlugin,
             SplitText
         );
 
-        ScrollSmoother.create({
-            wrapper: '#smooth-wrapper',
-            content: '#smooth-content',
-            smooth: 1.5,
-            effects: true,
-        });
+        // ScrollSmoother.create({
+        //     wrapper: '#smooth-wrapper',
+        //     content: '#smooth-content',
+        //     smooth: 1.5,
+        //     effects: true,
+        // });
     }
 
     return {
@@ -39,7 +39,7 @@ export default defineNuxtPlugin(() => {
             scrollTrigger: ScrollTrigger,
             scrollTo: ScrollToPlugin,
             Draggable,
-            ScrollSmoother,
+            // ScrollSmoother,
             SplitText,
         },
     };
