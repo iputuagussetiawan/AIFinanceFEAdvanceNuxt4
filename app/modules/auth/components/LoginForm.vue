@@ -8,10 +8,11 @@ import GoogleIcon from '~/components/shared/icons/GoogleIcon.vue';
 import UiInput from '~/components/shared/UiInput.vue';
 import { LoginSchema, type LoginInput } from '../auth.validation';
 import { useMutation } from '@tanstack/vue-query';
-import { authService } from '../auth.service';
 import { Loader2 } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
+const config = useRuntimeConfig();
+
 const { user } = useAuth();
-const toast = useToast();
 
 const { $api } = useNuxtApp();
 const props = defineProps<{
@@ -39,10 +40,7 @@ const { mutate, isPending, error } = useMutation({
             user: data.user,
         };
         user.value = userLoginData;
-        toast.success({
-            title: 'Success!',
-            message: 'Your action was completed successfully.',
-        });
+        toast.success('Login Success');
         // 3. Redirect to dashboard
         await navigateTo('/dashboard');
     },
@@ -74,6 +72,19 @@ const { mutate, isPending, error } = useMutation({
 const onSubmit = handleSubmit((values: LoginInput) => {
     mutate(values);
 });
+
+const showToast = () => {
+    toast.warning('Error');
+};
+
+const handleGoogleLogin = () => {
+    // 1. Get your backend base URL from Nuxt config
+    const appBase = config.public.apiBaseUrl || 'http://localhost:8000';
+    const authUrl = `${appBase}/auth/google`;
+    // 2. Redirect the entire window to your Express route
+    // This triggers the Passport.js logic on the server
+    window.open(authUrl, '_blank');
+};
 </script>
 
 <template>
@@ -141,7 +152,12 @@ const onSubmit = handleSubmit((values: LoginInput) => {
             <FieldSeparator>Or continue with</FieldSeparator>
 
             <Field>
-                <Button variant="outline" type="button" class="w-full">
+                <Button
+                    @click="handleGoogleLogin"
+                    variant="outline"
+                    type="button"
+                    class="w-full"
+                >
                     <GoogleIcon class="size-4" />
                     Login with Google
                 </Button>
@@ -157,5 +173,6 @@ const onSubmit = handleSubmit((values: LoginInput) => {
                 </div>
             </Field>
         </FieldGroup>
+        <Button @click="showToast">Test Toats</Button>
     </form>
 </template>

@@ -71,9 +71,9 @@ const timeAgo = computed(() => {
 <template>
     <div class="group flex w-full items-center py-3">
         <div
-            class="mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/20 text-muted-foreground group-hover:bg-primary/5 group-hover:text-primary transition-all duration-300"
+            class="mr-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-muted/20 text-muted-foreground hover:cursor-pointer hover:bg-primary/5 hover:text-primary transition-all duration-300"
             :class="{
-                'border-green-500/30 bg-green-500/5 text-green-600':
+                'border-green-500/30 dark:bg-primary/10 text-primary dark:text-primary':
                     session.isCurrent,
             }"
         >

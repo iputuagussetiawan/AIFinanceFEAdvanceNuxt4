@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Sessions from './Sessions.vue';
+const { user: currentUser } = useAuth();
 </script>
 <template>
     <div class="flex flex-col min-h-screen">
@@ -9,8 +10,10 @@ import Sessions from './Sessions.vue';
             </h1>
             <p class="mt-2 text-sm text-muted-foreground">
                 Welcome back,
-                <span class="font-medium text-foreground">I Putu</span>. Follow
-                the steps to activate using Squeezy.
+                <span class="font-medium text-foreground">{{
+                    currentUser?.user?.name
+                }}</span
+                >. Follow the steps to activate using AI Finance Assistance.
             </p>
         </div>
 

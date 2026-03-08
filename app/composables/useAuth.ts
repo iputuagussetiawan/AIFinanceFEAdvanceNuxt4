@@ -1,10 +1,10 @@
-import { authService } from '~/modules/auth/auth.service';
-import { userService } from '~/modules/user/user.service';
+import { toast } from 'vue-sonner';
 
 export interface IUser {
     _id: string;
     name: string;
     email: string;
+    bio: string;
     profilePicture: string | null;
     isEmailVerified: boolean;
     isActive: boolean;
@@ -20,35 +20,27 @@ export interface IUserResponse {
 }
 
 export const useAuth = () => {
+    // 1. Keep the state as the FULL response object
     const user = useState<IUserResponse | null>('user', () => null);
     const token = useCookie('accessToken');
     const loading = ref(false);
     const { $api } = useNuxtApp();
 
-    // 1. Initial Fetch
-    const { data, pending } = useAsyncData(
+    const { data, pending, refresh } = useAsyncData(
         'authUser',
         async () => {
             if (!token.value) return null;
-            // Fetch the raw response from the service
-            return await $api.user.getProfile();
-            // Return ONLY the user part. This is what 'data' will hold.
+            return await $api.user.getProfile(); // Returns { message, user }
         },
-        {
-            immediate: !!token.value,
-            // We removed 'transform' here because we are already
-            // unwrapping 'res.user' in the async function above.
-            server: true,
-        }
+        { immediate: !!token.value, server: true }
     );
 
-    // 2. Manual Fetch (used for profile updates or re-auth)
+    // 2. Manual Fetch - FIX: Save the WHOLE response, not just res.user
     const fetchUser = async () => {
-        if (!token.value) return;
         loading.value = true;
         try {
             const res = await $api.user.getProfile();
-            user.value = res.user;
+            user.value = res; // FIX: Keep the structure consistent
         } catch (err) {
             user.value = null;
             token.value = null;
@@ -58,17 +50,18 @@ export const useAuth = () => {
     };
 
     // 3. Sync initial data
-    // We watch 'data' to ensure the global 'user' state stays updated.
-    // When logout happens, data becomes null, and user.value follows.
     watch(
         data,
-        (newUser) => {
-            if (newUser) user.value = newUser;
+        (newData) => {
+            if (newData) user.value = newData;
         },
         { immediate: true }
     );
 
-    const isLoggedIn = computed(() => !!user.value);
+    // 4. Helper Computed for easy template use
+    // This lets you use 'currentUser.name' instead of 'user.user.name'
+    const currentUser = computed(() => user.value?.user || null);
+    const isLoggedIn = computed(() => !!user.value?.user);
 
     // 4. Logout
     const logout = async () => {
@@ -76,6 +69,7 @@ export const useAuth = () => {
             // Clear Nuxt cache so a new login doesn't show old user data
             clearNuxtData('authUser');
             await $api.auth.logout();
+            toast.success('Success Logout');
         } catch (err) {
             console.error('Logout error:', err);
         } finally {
@@ -90,6 +84,7 @@ export const useAuth = () => {
 
     return {
         user,
+        currentUser,
         isLoggedIn,
         isLoading: computed(() => pending.value || loading.value),
         fetchUser,
