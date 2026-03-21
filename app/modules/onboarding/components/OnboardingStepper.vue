@@ -18,16 +18,16 @@ interface Step {
 
 defineProps<{
     steps: Step[];
-    modelValue: number; // This is our currentStep
+    currentStep: number; // This is our currentStep
 }>();
 
-defineEmits(['update:modelValue']);
+defineEmits(['update:currentStep']);
 </script>
 
 <template>
     <Stepper
-        :model-value="modelValue"
-        @update:model-value="$emit('update:modelValue', $event)"
+        :model-value="currentStep"
+        @update:model-value="$emit('update:currentStep', $event)"
         class="flex w-full items-start gap-2 mb-12"
     >
         <StepperItem
@@ -40,7 +40,7 @@ defineEmits(['update:modelValue']);
                 <StepperIndicator
                     class="transition-all duration-500 z-10"
                     :class="[
-                        modelValue >= item.step
+                        currentStep >= item.step
                             ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                             : 'bg-muted text-muted-foreground',
                     ]"
@@ -56,7 +56,7 @@ defineEmits(['update:modelValue']);
                 <div
                     class="h-full bg-primary transition-all duration-500 ease-in-out"
                     :style="{
-                        width: modelValue > item.step ? '100%' : '0%',
+                        width: currentStep > item.step ? '100%' : '0%',
                     }"
                 />
             </div>
@@ -65,7 +65,7 @@ defineEmits(['update:modelValue']);
                 <StepperTitle
                     class="text-sm font-semibold transition-colors duration-300"
                     :class="
-                        modelValue >= item.step
+                        currentStep >= item.step
                             ? 'text-primary'
                             : 'text-muted-foreground'
                     "

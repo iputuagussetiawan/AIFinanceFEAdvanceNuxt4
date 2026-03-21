@@ -8,7 +8,25 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-// No props needed - FormField injects the form context automatically.
+import { ref, useTemplateRef } from 'vue';
+import { DnDProvider, makeDroppable } from '@vue-dnd-kit/core';
+import SortableItem from './SortableItem.vue';
+
+const items = ref(['One', 'Two', 'Three', 'Four']);
+const zoneRef = useTemplateRef<HTMLElement>('zone');
+
+makeDroppable(
+    zoneRef,
+    {
+        events: {
+            onDrop(e) {
+                const r = e.helpers.suggestSort('vertical');
+                if (r) items.value = r.targetItems as string[];
+            },
+        },
+    },
+    () => items.value
+);
 </script>
 
 <template>
@@ -55,5 +73,17 @@ import { Input } from '@/components/ui/input';
                 </FormItem>
             </FormField>
         </div>
+        <DnDProvider>
+            <div ref="zone" class="list">
+                <SortableItem
+                    v-for="(item, i) in items"
+                    :key="item"
+                    :index="i"
+                    :items="items"
+                >
+                    {{ item }}
+                </SortableItem>
+            </div>
+        </DnDProvider>
     </div>
 </template>

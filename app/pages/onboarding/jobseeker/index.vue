@@ -47,6 +47,7 @@ const { values, errors, validate } = useForm({
         company: '',
         role: '',
     },
+    keepValuesOnUnmount: true,
 });
 
 // 3. Navigation Logic
@@ -74,13 +75,30 @@ const isStepComplete = computed(() => {
     return schema.safeParse(values).success;
 });
 
+// const handleFinalSubmit = async () => {
+//     isSubmitting.value = true;
+//     // Simulate API Call
+//     console.log('Final Data:', values);
+//     setTimeout(() => {
+//         isSubmitting.value = false;
+//     }, 2000);
+// };
+
 const handleFinalSubmit = async () => {
     isSubmitting.value = true;
-    // Simulate API Call
-    console.log('Final Data:', values);
-    setTimeout(() => {
+    try {
+        console.log('Executing Final Trade with Data:', values);
+        // await $api.onboarding.submit(values);
+
+        // Simulate delay
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        // router.push('/dashboard');
+    } catch (err) {
+        console.error('Final Submit Failed:', err);
+    } finally {
         isSubmitting.value = false;
-    }, 2000);
+    }
 };
 
 const steps = [
@@ -109,12 +127,28 @@ const steps = [
         icon: Rocket,
     },
 ];
+
+const onSubmit = async () => {
+    // Validate the current step's schema
+    const result = await validate();
+
+    if (!result.valid) return;
+
+    if (currentStep.value < steps.length) {
+        // Move to next step if not at the end
+        currentStep.value++;
+    } else {
+        // Final submission logic
+        await handleFinalSubmit();
+    }
+};
 </script>
 
 <template>
     <div class="max-w-4xl mx-auto py-10 px-4">
-        <OnboardingStepper v-model="currentStep" :steps="steps" />
-        <div
+        <OnboardingStepper v-model:currentStep="currentStep" :steps="steps" />
+        <form
+            @submit.prevent="onSubmit"
             class="bg-card border rounded-xl p-8 shadow-sm min-h-100 flex flex-col transition-all duration-300"
         >
             <div class="grow">
@@ -139,7 +173,7 @@ const steps = [
                 @next="nextStep"
                 @back="prevStep"
             />
-        </div>
+        </form>
     </div>
 </template>
 
